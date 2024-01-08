@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:zoo_route_planner/routeMain.dart';
 
@@ -33,6 +35,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  // this could eventually become a map depending on what functionality is needed
+  List animalNames = ['A zero', 'B one', 'C two', 'D three', 'E four', 'F five', 'G six', 'H seven', 'I eight'];
+  List animalSelected = [false, false, false, false, false, false, false, false, false];
+  List selectedAnimals = [];
+
   void _moveToRoute () {
     setState((){});
     Navigator.push(
@@ -41,35 +48,58 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _test () {
-
+  void changeAnimalState (int index) {
+    setState((){
+      animalSelected[index] = !animalSelected[index];
+      if (animalSelected[index]) {
+        selectedAnimals.add(animalNames[index]);
+        selectedAnimals.sort();
+      } else {
+        selectedAnimals.remove(animalNames[index]);
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Animals'),
-      ),
       body: DefaultTabController(
         length: 2,
         child: Scaffold(
           appBar: AppBar(
+            backgroundColor: Colors.green,
             automaticallyImplyLeading: false,
-            bottom: TabBar(
+            toolbarHeight: 70,
+            title: Container(
+              alignment: Alignment.center,
+              child:const Text(
+                "What animals would\nyou like to see?",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            bottom: const TabBar(
               tabs: [
                 Tab(
                   child: Text(
                     'Add',
-                    style: Theme.of(context).textTheme.headlineLarge,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 30,
+                    ),
                   ),
                 ),
                 Tab(
                   child: Text(
                     'Selected',
-                    style: Theme.of(context).textTheme.headlineLarge,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 30,
+                    ),
                   ),
                 ),
               ],
@@ -77,9 +107,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           body: TabBarView(
             children: [
-              CustomScrollView(
+              CustomScrollView(                   // add tab
                 slivers: [
-                  SliverAppBar(
+                  const SliverAppBar(
                     automaticallyImplyLeading: false,
                     pinned: true,
                     title: Text('(Future) Search'),
@@ -88,18 +118,48 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
-                      (context, index) => ListTile(title: OutlinedButton(onPressed: _test, child:Text('Add #$index'))),
-                      childCount: 20,
+                      (context, index) {
+                        return ListTile(
+                          title: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                              // shape: StadiumBorder(),
+                              backgroundColor: animalSelected[index] ? Colors.blue : Colors.grey,
+                              side: const BorderSide(
+                                  width: 2,
+                                  color: Colors.black,
+                              ),
+                            ),
+                            onPressed: () { changeAnimalState(index); },
+                            child:Text(
+                              animalNames[index],
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                              ),
+                            )
+                          )
+                        );
+                      },
+                      childCount: animalNames.length,
                     ),
                   ),
                 ],
               ),
-              CustomScrollView(
+              CustomScrollView(                 // selected tab
                 slivers: [
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
-                      (context, index) => ListTile(title: Text('Selected #$index')),
-                      childCount: 10,
+                      (context, index) {
+                        return ListTile(
+                          title: Text(
+                            (selectedAnimals.isEmpty) ? "No Animals Selected" : selectedAnimals[index],
+                            style: TextStyle(
+                              fontSize: (selectedAnimals.isEmpty) ? 25 : 20,
+                            ),
+                          ),
+                        );
+                      },
+                      childCount: (selectedAnimals.isEmpty) ? 1 : selectedAnimals.length,
                     ),
                   ),
                 ],
@@ -117,19 +177,32 @@ class _MyHomePageState extends State<MyHomePage> {
               flex: 65,
               child: Container (
                 alignment: Alignment.center,
-                child: Text(
+                child: const Text(
                   'Plan',
-                  style: Theme.of(context).textTheme.headlineLarge,
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
             Expanded(
               flex: 35,
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  side: const BorderSide(
+                    width: 1,
+                    color: Colors.black,
+                  ),
+                ),
                 onPressed: _moveToRoute,
-                child: Text(
+                child: const Text(
                   'Route',
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                  ),
                 ),
               ),
             ),
