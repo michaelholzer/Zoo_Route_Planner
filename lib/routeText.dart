@@ -88,10 +88,19 @@ class _RouteTextState extends State<RouteText> {
             Expanded(
               flex: 35,
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  side: const BorderSide(
+                    width: 1,
+                    color: Colors.black,
+                  ),
+                ),
                 onPressed: _moveToPlan,
-                child: Text(
+                child: const Text(
                   'Plan',
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                  ),
                 ),
               ),
             ),
@@ -99,9 +108,13 @@ class _RouteTextState extends State<RouteText> {
               flex: 65,
               child: Container (
                 alignment: Alignment.center,
-                child: Text(
+                child: const Text(
                   'Route',
-                  style: Theme.of(context).textTheme.headlineLarge,
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
