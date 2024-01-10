@@ -46,27 +46,52 @@ class _RouteMainState extends State<RouteMain> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(
-                flex: 3,
-                child: Container(
-
-                )
-            ),
-            Expanded(
               flex: 15,
-              child: ElevatedButton(
-                onPressed: _moveToLocation,
-                child: Text('Current Location: Location', style: Theme.of(context).textTheme.headlineSmall,),
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    side: const BorderSide(
+                      width: 1,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  onPressed: _moveToLocation,
+                  child: const Text(
+                    'Current Location:\nLocation',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 25,
+                    ),
+                  ),
+                ),
               ),
             ),
             Expanded(
               flex: 10,
-              child: ElevatedButton(
-                onPressed: _moveToText,
-                child: Text('Text View', style: Theme.of(context).textTheme.headlineSmall,),
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    side: const BorderSide(
+                      width: 1,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  onPressed: _moveToText,
+                  child: const Text(
+                    'Text View',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
               ),
             ),
             Expanded(
-              flex: 72,
+              flex: 75,
               child: Container(
                   margin: const EdgeInsets.all(10),
                   decoration: BoxDecoration(

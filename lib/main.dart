@@ -107,7 +107,8 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           body: TabBarView(
             children: [
-              CustomScrollView(                   // add tab
+              // "Add" Tab
+              CustomScrollView(
                 slivers: [
                   const SliverAppBar(
                     automaticallyImplyLeading: false,
@@ -120,14 +121,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         return ListTile(
+                          minVerticalPadding: 0,
+                          contentPadding: const EdgeInsets.all(10),
                           title: OutlinedButton(
                             style: OutlinedButton.styleFrom(
-                              // shape: StadiumBorder(),
-                              backgroundColor: animalSelected[index] ? Colors.blue : Colors.grey,
-                              side: const BorderSide(
-                                  width: 2,
-                                  color: Colors.black,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10))
                               ),
+                              backgroundColor: animalSelected[index] ? Colors.blue : Colors.grey,
+                              side: const BorderSide(width: 2, color: Colors.black,),
                             ),
                             onPressed: () { changeAnimalState(index); },
                             child:Text(
@@ -145,7 +147,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-              CustomScrollView(                 // selected tab
+              // "Selected" Tab
+              CustomScrollView(
                 slivers: [
                   SliverList(
                     delegate: SliverChildBuilderDelegate(

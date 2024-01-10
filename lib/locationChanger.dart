@@ -42,6 +42,12 @@ class _LocationChangeState extends State<LocationChange> {
       bottomNavigationBar: BottomAppBar(
         height: 60,
         child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            side: const BorderSide(
+              width: 1,
+              color: Colors.black,
+            ),
+          ),
           onPressed: _test,
           child: Text(
             style: Theme.of(context).textTheme.headlineSmall,
