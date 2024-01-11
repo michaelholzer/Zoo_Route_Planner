@@ -1,7 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:zoo_route_planner/routeMain.dart';
+import 'package:zoo_route_planner/routeLogic.dart';
+import 'package:zoo_route_planner/routeMap.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,15 +20,16 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Animal Addition'),
+      home: MyHomePage(title: 'Animal Addition', animalList: [],),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  MyHomePage({super.key, required this.title, required this.animalList});
 
   final String title;
+  final List animalList;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -35,27 +37,32 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  final DijkstrasAlgorithm algorithm = DijkstrasAlgorithm();
+
   // this could eventually become a map depending on what functionality is needed
   List animalNames = ['A zero', 'B one', 'C two', 'D three', 'E four', 'F five', 'G six', 'H seven', 'I eight'];
-  List animalSelected = [false, false, false, false, false, false, false, false, false];
+  List<bool> animalSelected = [false, false, false, false, false, false, false, false, false];
   List selectedAnimals = [];
 
   void _moveToRoute () {
     setState((){});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const RouteMain(title: 'routeMain')),
+      MaterialPageRoute(builder: (context) => RouteMap(title: 'routeMain', animalList: animalSelected,)),
     );
+    // algorithm.RunAlgorithm();
   }
 
-  void changeAnimalState (int index) {
+  void _changeAnimalState (int index) {
     setState((){
       animalSelected[index] = !animalSelected[index];
       if (animalSelected[index]) {
         selectedAnimals.add(animalNames[index]);
+        algorithm.setState(index, true);
         selectedAnimals.sort();
       } else {
         selectedAnimals.remove(animalNames[index]);
+        algorithm.setState(index, false);
       }
     });
   }
@@ -73,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
             title: Container(
               alignment: Alignment.center,
               child:const Text(
-                "What animals would\nyou like to see?",
+                'What animals would\nyou like to see?',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black,
@@ -131,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               backgroundColor: animalSelected[index] ? Colors.blue : Colors.grey,
                               side: const BorderSide(width: 2, color: Colors.black,),
                             ),
-                            onPressed: () { changeAnimalState(index); },
+                            onPressed: () { _changeAnimalState(index); },
                             child:Text(
                               animalNames[index],
                               style: const TextStyle(

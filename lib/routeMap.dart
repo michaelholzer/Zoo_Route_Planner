@@ -3,22 +3,26 @@ import 'package:zoo_route_planner/locationChanger.dart';
 import 'package:zoo_route_planner/main.dart';
 import 'package:zoo_route_planner/routeText.dart';
 
-class RouteMain extends StatefulWidget {
-  const RouteMain({super.key, required this.title});
+class RouteMap extends StatefulWidget {
+  const RouteMap({super.key, required this.title, required this.animalList});
 
   final String title;
+  final List<bool> animalList;
 
   @override
-  State<RouteMain> createState() => _RouteMainState();
+  State<RouteMap> createState() => _RouteMapState(animalList: animalList);
 }
 
-class _RouteMainState extends State<RouteMain> {
+class _RouteMapState extends State<RouteMap> {
+
+  List<bool> animalList = [];
+  _RouteMapState({required this.animalList});
 
   void _moveToPlan () {
     setState((){});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const MyHomePage(title: 'MyHomepage')),
+      MaterialPageRoute(builder: (context) => MyHomePage(title: 'MyHomepage', animalList: animalList,)),
     );
   }
 
@@ -26,7 +30,7 @@ class _RouteMainState extends State<RouteMain> {
     setState(() {});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const RouteText(title: 'routeText')),
+      MaterialPageRoute(builder: (context) => RouteText(title: 'routeText', animalList: animalList)),
     );
   }
 
@@ -34,7 +38,7 @@ class _RouteMainState extends State<RouteMain> {
     setState(() {});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const LocationChange(title: 'locationChange')),
+      MaterialPageRoute(builder: (context) => LocationChange(title: 'locationChange', animalList: animalList,)),
     );
   }
 

@@ -1,24 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:zoo_route_planner/main.dart';
-import 'package:zoo_route_planner/routeMain.dart';
+import 'package:zoo_route_planner/routeLogic.dart';
+import 'package:zoo_route_planner/routeMap.dart';
 import 'locationChanger.dart';
 
 class RouteText extends StatefulWidget {
-  const RouteText({super.key, required this.title});
+  const RouteText({super.key, required this.title, required this.animalList});
 
   final String title;
+  final List<bool> animalList;
 
   @override
-  State<RouteText> createState() => _RouteTextState();
+  State<RouteText> createState() => _RouteTextState(animalList: animalList);
 }
 
 class _RouteTextState extends State<RouteText> {
+  List<bool> animalList = [];
+  List order = [];
+  _RouteTextState({required this.animalList});
+
+  static final DijkstrasAlgorithm algorithm = DijkstrasAlgorithm();
+
+  @override
+  void initState() {
+    super.initState();
+    algorithm.RunAlgorithm(animalList);
+    order = algorithm.getFullOrder();
+  }
 
   void _moveToPlan () {
     setState((){});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const MyHomePage(title: 'MyHomepage')),
+      MaterialPageRoute(builder: (context) => MyHomePage(title: 'MyHomepage', animalList: animalList,)),
     );
   }
 
@@ -26,7 +40,7 @@ class _RouteTextState extends State<RouteText> {
     setState(() {});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const RouteMain(title: 'routeMain')),
+      MaterialPageRoute(builder: (context) => RouteMap(title: 'routeMain', animalList: animalList)),
     );
   }
 
@@ -34,9 +48,20 @@ class _RouteTextState extends State<RouteText> {
     setState(() {});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const LocationChange(title: 'locationChange')),
+      MaterialPageRoute(builder: (context) => LocationChange(title: 'locationChange', animalList: animalList,)),
     );
   }
+  
+  void _refresh () {
+    setState(() {});
+    algorithm.RunAlgorithm(animalList);
+    order = algorithm.getFullOrder();
+  }
+
+  // String _getText (int index) {
+  //   setState(() {});
+  //   return algorithm.getLocationOrder(index).toString();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -70,24 +95,33 @@ class _RouteTextState extends State<RouteText> {
             ),
             Expanded(
               flex: 10,
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    side: const BorderSide(
-                      width: 1,
-                      color: Colors.grey,
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        side: const BorderSide(
+                          width: 1,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      onPressed: _moveToMap,
+                      child: const Text(
+                        'Map View',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                        ),
+                      ),
                     ),
                   ),
-                  onPressed: _moveToMap,
-                  child: const Text(
-                    'Map View',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
+                  Container(
+                    child: ElevatedButton(
+                      onPressed: _refresh, child: Text('Refresh'),
                     ),
-                  ),
-                ),
+                  )
+                ],
               ),
             ),
             Expanded(
@@ -114,13 +148,17 @@ class _RouteTextState extends State<RouteText> {
                                 borderRadius: const BorderRadius.all(Radius.circular(2)),
                               ),
                               child: Text(
-                                'Text $index\nwith a second row',
+                                // 'Step $index:\ntest',
+                                // (_getText(index)),
+                                order[index].toString(),
+                                // algorithm.getLocationOrder(index),
                                 style: const TextStyle(fontSize: 20,),
                               )
                             ),
                           );
                         },
-                        childCount: 10,
+                        // childCount: algorithm.getOrderAmount(),
+                        childCount: order.length,
                       )
                     )
                   ],

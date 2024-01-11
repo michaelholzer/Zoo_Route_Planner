@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:zoo_route_planner/routeLogic.dart';
 
 class LocationChange extends StatefulWidget {
-  const LocationChange({super.key, required this.title});
+  const LocationChange({super.key, required this.title, required this.animalList});
 
   final String title;
+  final List animalList;
 
   @override
   State<LocationChange> createState() => _LocationChangeState();
@@ -11,15 +13,20 @@ class LocationChange extends StatefulWidget {
 
 class _LocationChangeState extends State<LocationChange> {
 
-  void _test() {
+  final DijkstrasAlgorithm algorithm = DijkstrasAlgorithm();
 
+  void _setLocation() {
+    // algorithm.RunAlgorithm();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Location: Current Location'),
+        // add following in exchange for using button on bottom
+        // automaticallyImplyLeading: false,
       ),
       body: CustomScrollView(
         slivers: [
@@ -33,8 +40,8 @@ class _LocationChangeState extends State<LocationChange> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               // (context, index) => ListTile(title: Text('Location #$index')),
-              (context, index) => ListTile(title: OutlinedButton(onPressed: _test,child:Text('Location #$index'),)),
-              childCount: 20,
+              (context, index) => ListTile(title: OutlinedButton(onPressed: _setLocation,child:Text('Location #$index'),)),
+              childCount: algorithm.getAmount(),
             ),
           ),
         ],
@@ -48,7 +55,7 @@ class _LocationChangeState extends State<LocationChange> {
               color: Colors.black,
             ),
           ),
-          onPressed: _test,
+          onPressed: _setLocation,
           child: Text(
             style: Theme.of(context).textTheme.headlineSmall,
             'Set Current Location'
