@@ -22,7 +22,7 @@ class DijkstrasAlgorithm {
 
   // if animal selected is true
   List<bool> toVisit = List.filled(amount, false);
-  // void setState (int index, bool state) => toVisit[index] = state;
+  void setState (int index, bool state) => toVisit[index] = state;
   // bool getState (int index) => toVisit[index];
   void setVisitState(List<bool> visits) => toVisit = visits;
 

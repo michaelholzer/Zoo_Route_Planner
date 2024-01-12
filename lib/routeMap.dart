@@ -4,9 +4,8 @@ import 'package:zoo_route_planner/main.dart';
 import 'package:zoo_route_planner/routeText.dart';
 
 class RouteMap extends StatefulWidget {
-  const RouteMap({super.key, required this.title, required this.animalList});
+  const RouteMap({super.key, required this.animalList});
 
-  final String title;
   final List<bool> animalList;
 
   @override
@@ -22,7 +21,7 @@ class _RouteMapState extends State<RouteMap> {
     setState((){});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MyHomePage(title: 'MyHomepage', animalList: animalList,)),
+      MaterialPageRoute(builder: (context) => MyHomePage(animalList: animalList,)),
     );
   }
 
@@ -30,7 +29,7 @@ class _RouteMapState extends State<RouteMap> {
     setState(() {});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => RouteText(title: 'routeText', animalList: animalList)),
+      MaterialPageRoute(builder: (context) => RouteText(animalList: animalList)),
     );
   }
 
@@ -38,7 +37,7 @@ class _RouteMapState extends State<RouteMap> {
     setState(() {});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => LocationChange(title: 'locationChange', animalList: animalList,)),
+      MaterialPageRoute(builder: (context) => LocationChange(animalList: animalList,)),
     );
   }
 

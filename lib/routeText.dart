@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:zoo_route_planner/main.dart';
 import 'package:zoo_route_planner/routeLogic.dart';
 import 'package:zoo_route_planner/routeMap.dart';
-import 'locationChanger.dart';
+import 'package:zoo_route_planner/locationChanger.dart';
 
 class RouteText extends StatefulWidget {
-  const RouteText({super.key, required this.title, required this.animalList});
+  const RouteText({super.key, required this.animalList});
 
-  final String title;
   final List<bool> animalList;
 
   @override
@@ -20,7 +19,7 @@ class _RouteTextState extends State<RouteText> {
   _RouteTextState({required this.animalList});
   // List<bool> visitList = animalList;
 
-  static final DijkstrasAlgorithm algorithm = DijkstrasAlgorithm();
+  final DijkstrasAlgorithm algorithm = DijkstrasAlgorithm();
 
   @override
   void initState() {
@@ -44,7 +43,7 @@ class _RouteTextState extends State<RouteText> {
     setState((){});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MyHomePage(title: 'MyHomepage', animalList: animalList,)),
+      MaterialPageRoute(builder: (context) => MyHomePage(animalList: animalList)),
     );
   }
 
@@ -52,7 +51,7 @@ class _RouteTextState extends State<RouteText> {
     setState(() {});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => RouteMap(title: 'routeMain', animalList: animalList)),
+      MaterialPageRoute(builder: (context) => RouteMap(animalList: animalList)),
     );
   }
 
@@ -60,7 +59,7 @@ class _RouteTextState extends State<RouteText> {
     setState(() {});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => LocationChange(title: 'locationChange', animalList: animalList,)),
+      MaterialPageRoute(builder: (context) => LocationChange(animalList: animalList)),
     );
   }
 

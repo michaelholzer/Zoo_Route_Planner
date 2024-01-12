@@ -20,37 +20,56 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: MyHomePage(title: 'Animal Addition', animalList: [],),
+      home: const MyHomePage(animalList: []),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({super.key, required this.title, required this.animalList});
+  const MyHomePage({super.key, required this.animalList});
 
-  final String title;
-  final List animalList;
+  final List<bool> animalList;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState(animalList: animalList);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  final DijkstrasAlgorithm algorithm = DijkstrasAlgorithm();
+  List<bool> animalList;
+  _MyHomePageState({required this.animalList});
 
   // this could eventually become a map depending on what functionality is needed
   List animalNames = ['A zero', 'B one', 'C two', 'D three', 'E four', 'F five', 'G six', 'H seven', 'I eight'];
   List<bool> animalSelected = [false, false, false, false, false, false, false, false, false];
   List selectedAnimals = [];
 
+  final DijkstrasAlgorithm algorithm = DijkstrasAlgorithm();
+
+  @override
+  void initState() {
+    super.initState();
+    // set local animalSelected to the passed animal list when applicable
+    if (animalList.isNotEmpty) {
+      animalSelected.clear();
+      animalSelected.addAll(animalList);
+
+      // add animals as selected that are selected
+      for (int i = 0; i < animalSelected.length; i++) {
+        if (animalSelected[i]) {
+          selectedAnimals.add(animalNames[i]);
+        }
+      }
+      selectedAnimals.sort();
+    }
+  }
+
   void _moveToRoute () {
     setState((){});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => RouteMap(title: 'routeMain', animalList: animalSelected,)),
+      MaterialPageRoute(builder: (context) => RouteMap(animalList: animalSelected)),
     );
-    // algorithm.RunAlgorithm();
   }
 
   void _changeAnimalState (int index) {
@@ -58,11 +77,11 @@ class _MyHomePageState extends State<MyHomePage> {
       animalSelected[index] = !animalSelected[index];
       if (animalSelected[index]) {
         selectedAnimals.add(animalNames[index]);
-        // algorithm.setState(index, true);
+        algorithm.setState(index, true);
         selectedAnimals.sort();
       } else {
         selectedAnimals.remove(animalNames[index]);
-        // algorithm.setState(index, false);
+        algorithm.setState(index, false);
       }
     });
   }

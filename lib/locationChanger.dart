@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:zoo_route_planner/routeLogic.dart';
 
 class LocationChange extends StatefulWidget {
-  const LocationChange({super.key, required this.title, required this.animalList});
+  const LocationChange({super.key, required this.animalList});
 
-  final String title;
   final List animalList;
 
   @override
