@@ -3,6 +3,8 @@ import 'package:zoo_route_planner/location_changer.dart';
 import 'package:zoo_route_planner/main.dart';
 import 'package:zoo_route_planner/route_logic.dart';
 import 'package:zoo_route_planner/route_text.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 
 class RouteMap extends StatefulWidget {
   const RouteMap({super.key, required this.animalList, required this.start});
