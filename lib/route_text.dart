@@ -72,6 +72,7 @@ class _RouteTextState extends State<RouteText> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.green,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -83,15 +84,15 @@ class _RouteTextState extends State<RouteText> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     side: const BorderSide(
-                      width: 1,
+                      width: 2,
                       color: Colors.grey,
                     ),
                   ),
                   onPressed: _moveToLocation,
-                  child: const Text(
-                    'Current Location:\nLocation',
+                  child: Text(
+                    'Current Location:\n${algorithm.getName(start)}',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 25,
                     ),
@@ -101,28 +102,24 @@ class _RouteTextState extends State<RouteText> {
             ),
             Expanded(
               flex: 10,
-              child: Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(10),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        side: const BorderSide(
-                          width: 1,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      onPressed: _moveToMap,
-                      child: const Text(
-                        'View Map Directions',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                        ),
-                      ),
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    side: const BorderSide(
+                      width: 2,
+                      color: Colors.grey,
                     ),
                   ),
-                ],
+                  onPressed: _moveToMap,
+                  child: const Text(
+                    'View Map Directions',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
               ),
             ),
             Expanded(
@@ -130,9 +127,9 @@ class _RouteTextState extends State<RouteText> {
               child: Container(
                 width: double.infinity,
                 margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  border: Border.all(width: 2, color: Colors.green),
-                  borderRadius: const BorderRadius.all(Radius.circular(5)),
+                decoration: const BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
                 ),
                 child: CustomScrollView(
                   slivers: [
@@ -141,15 +138,15 @@ class _RouteTextState extends State<RouteText> {
                         (context, index) {
                           return ListTile(
                             textColor: Colors.black,
-                            minVerticalPadding: 0,
-                            contentPadding: const EdgeInsets.all(5),
+                            minVerticalPadding: 2,
+                            dense: true,
                             title: Container(
                               decoration: BoxDecoration(
-                                border: Border.all(width: 1, color: Colors.grey),
+                                border: Border.all(width: 1, color: Colors.blueGrey),
                                 borderRadius: const BorderRadius.all(Radius.circular(2)),
                               ),
                               child: Text(
-                                order[index].toString(),
+                                '${algorithm.getName(order[index])}\nsecond line\nthird line',
                                 style: const TextStyle(fontSize: 20,),
                               )
                             ),

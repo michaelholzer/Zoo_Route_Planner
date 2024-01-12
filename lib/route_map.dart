@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zoo_route_planner/location_changer.dart';
 import 'package:zoo_route_planner/main.dart';
+import 'package:zoo_route_planner/route_logic.dart';
 import 'package:zoo_route_planner/route_text.dart';
 
 class RouteMap extends StatefulWidget {
@@ -19,6 +20,8 @@ class _RouteMapState extends State<RouteMap> {
 
   List<bool> animalList = [];
   int start;
+
+  final DijkstrasAlgorithm algorithm = DijkstrasAlgorithm();
 
   void _moveToPlan () {
     setState((){});
@@ -58,15 +61,15 @@ class _RouteMapState extends State<RouteMap> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     side: const BorderSide(
-                      width: 1,
+                      width: 2,
                       color: Colors.grey,
                     ),
                   ),
                   onPressed: _moveToLocation,
-                  child: const Text(
-                    'Current Location:\nLocation',
+                  child: Text(
+                    'Current Location:\n${algorithm.getName(start)}',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 25,
                     ),
@@ -81,7 +84,7 @@ class _RouteMapState extends State<RouteMap> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     side: const BorderSide(
-                      width: 1,
+                      width: 2,
                       color: Colors.grey,
                     ),
                   ),

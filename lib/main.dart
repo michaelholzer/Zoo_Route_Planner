@@ -39,8 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
   List<bool> animalList;
   int start;
 
-  // this could eventually become a map depending on what functionality is needed
-  List animalNames = ['A zero', 'B one', 'C two', 'D three', 'E four', 'F five', 'G six', 'H seven', 'I eight'];
   List<bool> animalSelected = [false, false, false, false, false, false, false, false, false];
   List selectedAnimals = [];
 
@@ -56,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       /// Add animals as selected that are selected
       for (int i = 0; i < animalSelected.length; i++) {
-        if (animalSelected[i]) selectedAnimals.add(animalNames[i]);
+        if (animalSelected[i]) selectedAnimals.add(algorithm.getName(i));
       }
       selectedAnimals.sort();
     }
@@ -76,11 +74,11 @@ class _MyHomePageState extends State<MyHomePage> {
     setState((){
       animalSelected[index] = !animalSelected[index];
       if (animalSelected[index]) {
-        selectedAnimals.add(animalNames[index]);
+        selectedAnimals.add(algorithm.getName(index));
         algorithm.setState(index, true);
         selectedAnimals.sort();
       } else {
-        selectedAnimals.remove(animalNames[index]);
+        selectedAnimals.remove(algorithm.getName(index));
         algorithm.setState(index, false);
       }
     });
@@ -147,8 +145,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         return ListTile(
-                          minVerticalPadding: 0,
-                          contentPadding: const EdgeInsets.all(10),
+                          minVerticalPadding: 2,
+                          dense: true,
                           title: OutlinedButton(
                             style: OutlinedButton.styleFrom(
                               shape: const RoundedRectangleBorder(
@@ -159,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             onPressed: () { _changeAnimalState(index); },
                             child:Text(
-                              animalNames[index],
+                              algorithm.getName(index),
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
@@ -168,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           )
                         );
                       },
-                      childCount: animalNames.length,
+                      childCount: algorithm.getAmount(),
                     ),
                   ),
                 ],
@@ -180,6 +178,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         return ListTile(
+                          minVerticalPadding: 5,
+                          dense: true,
                           title: Text(
                             (selectedAnimals.isEmpty) ? "No Animals Selected" : selectedAnimals[index],
                             style: TextStyle(

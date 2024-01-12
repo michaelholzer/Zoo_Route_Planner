@@ -1,5 +1,15 @@
 class DijkstrasAlgorithm {
 
+  /// List of names for all items
+  List names = ['A zero', 'B one', 'C two', 'D three', 'E four', 'F five', 'G six', 'H seven', 'I eight'];
+  String getName (int index) {
+    if (index == -1) {
+      return "Destination Reached";
+    } else {
+      return names[index];
+    }
+  }
+
   /// Matrix of distances between nodes for algorithm
   static List<List<int>> adjacencyMatrix = [
     [  0,  4,  0,  0,  0,  0,  0,  8,  0 ],

@@ -64,8 +64,8 @@ class _LocationChangeState extends State<LocationChange> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Location: Current Location'),
+        backgroundColor: Colors.green,
+        title: Text('Current Location: ${algorithm.getName(start)}'),
         automaticallyImplyLeading: false,
       ),
       body: CustomScrollView(
@@ -81,13 +81,15 @@ class _LocationChangeState extends State<LocationChange> {
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 return ListTile(
+                  minVerticalPadding: 2,
+                  dense: true,
                   title: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       backgroundColor: _selectedLocation[index] ? Colors.blue : Colors.grey,
                     ),
                     onPressed: () { _setLocation(index); },
                     child: Text(
-                      'Location #$index',
+                      algorithm.getName(index),
                       style: const TextStyle(
                         fontSize: 20,
                         color: Colors.black,
@@ -113,7 +115,7 @@ class _LocationChangeState extends State<LocationChange> {
           onPressed: _confirmLocation,
           child: Text(
             style: Theme.of(context).textTheme.headlineSmall,
-            'Set Current Location'
+            'Set as Current Location'
           ),
         ),
       ),
