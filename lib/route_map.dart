@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:zoo_route_planner/locationChanger.dart';
+import 'package:zoo_route_planner/location_changer.dart';
 import 'package:zoo_route_planner/main.dart';
-import 'package:zoo_route_planner/routeText.dart';
+import 'package:zoo_route_planner/route_text.dart';
 
 class RouteMap extends StatefulWidget {
   const RouteMap({super.key, required this.animalList, required this.start});
@@ -10,6 +10,7 @@ class RouteMap extends StatefulWidget {
   final int start;
 
   @override
+  // ignore: no_logic_in_create_state
   State<RouteMap> createState() => _RouteMapState(animalList: animalList, start: start);
 }
 

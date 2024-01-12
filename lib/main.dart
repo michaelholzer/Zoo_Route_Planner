@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zoo_route_planner/routeLogic.dart';
-import 'package:zoo_route_planner/routeMap.dart';
+import 'package:zoo_route_planner/route_logic.dart';
+import 'package:zoo_route_planner/route_map.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,6 +29,7 @@ class MyHomePage extends StatefulWidget {
   final int start;
 
   @override
+  // ignore: no_logic_in_create_state
   State<MyHomePage> createState() => _MyHomePageState(animalList: animalList, start: start);
 }
 
@@ -48,12 +49,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    /// set local animalSelected to the passed animal list when applicable
+    /// Set local animalSelected to the passed animal list when applicable
     if (animalList.isNotEmpty) {
       animalSelected.clear();
       animalSelected.addAll(animalList);
 
-      /// add animals as selected that are selected
+      /// Add animals as selected that are selected
       for (int i = 0; i < animalSelected.length; i++) {
         if (animalSelected[i]) selectedAnimals.add(animalNames[i]);
       }
@@ -69,6 +70,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  /// Update local selectedAnimals and animalSelected
+  /// Update associated algorithm List
   void _changeAnimalState (int index) {
     setState((){
       animalSelected[index] = !animalSelected[index];

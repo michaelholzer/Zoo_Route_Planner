@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:zoo_route_planner/main.dart';
-import 'package:zoo_route_planner/routeLogic.dart';
-import 'package:zoo_route_planner/routeMap.dart';
-import 'package:zoo_route_planner/locationChanger.dart';
+import 'package:zoo_route_planner/route_logic.dart';
+import 'package:zoo_route_planner/route_map.dart';
+import 'package:zoo_route_planner/location_changer.dart';
 
 class RouteText extends StatefulWidget {
   const RouteText({super.key, required this.animalList, required this.start});
@@ -11,6 +11,7 @@ class RouteText extends StatefulWidget {
   final int start;
 
   @override
+  // ignore: no_logic_in_create_state
   State<RouteText> createState() => _RouteTextState(animalList: animalList, start: start);
 }
 
@@ -27,16 +28,16 @@ class _RouteTextState extends State<RouteText> {
   @override
   void initState() {
     super.initState();
-    // save information from animalList
+    /// Save information from animalList
     List<bool> tempList = [];
     tempList.addAll(animalList);
-    // set algorithm values to  user inputted values
+    /// Set algorithm values to  user inputted values
     algorithm.setVisitState(animalList);
     algorithm.setStart(start);
-    // this next line sets animalList to false (for some reason)
+    /// This next line sets animalList to false (for some reason)
     algorithm.runAlgorithm();
     order = algorithm.getFullOrder();
-    // repair lists
+    /// Repair list so animalList isn't false for all values
     animalList.clear();
     animalList.addAll(tempList);
     // for debug purposes

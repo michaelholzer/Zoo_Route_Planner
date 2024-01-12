@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:zoo_route_planner/routeLogic.dart';
-import 'package:zoo_route_planner/routeMap.dart';
-import 'package:zoo_route_planner/routeText.dart';
+import 'package:zoo_route_planner/route_logic.dart';
+import 'package:zoo_route_planner/route_map.dart';
+import 'package:zoo_route_planner/route_text.dart';
 
 class LocationChange extends StatefulWidget {
   const LocationChange({super.key, required this.from, required this.animalList, required this.start});
@@ -11,6 +11,7 @@ class LocationChange extends StatefulWidget {
   final int start;
 
   @override
+  // ignore: no_logic_in_create_state
   State<LocationChange> createState() => _LocationChangeState(from: from, animalList: animalList, start: start);
 }
 
@@ -28,14 +29,14 @@ class _LocationChangeState extends State<LocationChange> {
   @override
   void initState() {
     super.initState();
-
+    /// Update local selectedLocation based on current start location
     _selectedLocation = List.filled(algorithm.getAmount(), false);
     _setLocation(start);
   }
 
   void _setLocation(int index) {
     setState((){});
-    // set index true and set all others false
+    /// Set index true and set all others false
     for (int i = 0; i < _selectedLocation.length; i++) {
       _selectedLocation[i] = false;
     }
@@ -45,7 +46,7 @@ class _LocationChangeState extends State<LocationChange> {
 
   void _confirmLocation() {
     setState((){});
-    // navigate back to text or map, wherever user came from
+    /// Navigate back to text or map, wherever user came from
     if (from == 'Map') {
       Navigator.push(
         context,
@@ -78,7 +79,6 @@ class _LocationChangeState extends State<LocationChange> {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              // (context, index) => ListTile(title: Text('Location #$index')),
               (context, index) {
                 return ListTile(
                   title: OutlinedButton(
@@ -88,7 +88,7 @@ class _LocationChangeState extends State<LocationChange> {
                     onPressed: () { _setLocation(index); },
                     child: Text(
                       'Location #$index',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         color: Colors.black,
                       ),
@@ -96,7 +96,7 @@ class _LocationChangeState extends State<LocationChange> {
                   )
                 );
               },
-              childCount: algorithm.getAmount(), // this call may change
+              childCount: algorithm.getAmount(),
             ),
           ),
         ],
