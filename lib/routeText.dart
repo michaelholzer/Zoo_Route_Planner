@@ -5,19 +5,22 @@ import 'package:zoo_route_planner/routeMap.dart';
 import 'package:zoo_route_planner/locationChanger.dart';
 
 class RouteText extends StatefulWidget {
-  const RouteText({super.key, required this.animalList});
+  const RouteText({super.key, required this.animalList, required this.start});
 
   final List<bool> animalList;
+  final int start;
 
   @override
-  State<RouteText> createState() => _RouteTextState(animalList: animalList);
+  State<RouteText> createState() => _RouteTextState(animalList: animalList, start: start);
 }
 
 class _RouteTextState extends State<RouteText> {
+  _RouteTextState({required this.animalList, required this.start});
+
   List<bool> animalList;
+  int start;
+
   List order = [];
-  _RouteTextState({required this.animalList});
-  // List<bool> visitList = animalList;
 
   final DijkstrasAlgorithm algorithm = DijkstrasAlgorithm();
 
@@ -27,7 +30,9 @@ class _RouteTextState extends State<RouteText> {
     // save information from animalList
     List<bool> tempList = [];
     tempList.addAll(animalList);
+    // set algorithm values to  user inputted values
     algorithm.setVisitState(animalList);
+    algorithm.setStart(start);
     // this next line sets animalList to false (for some reason)
     algorithm.runAlgorithm();
     order = algorithm.getFullOrder();
@@ -43,7 +48,7 @@ class _RouteTextState extends State<RouteText> {
     setState((){});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MyHomePage(animalList: animalList)),
+      MaterialPageRoute(builder: (context) => MyHomePage(animalList: animalList, start: start)),
     );
   }
 
@@ -51,7 +56,7 @@ class _RouteTextState extends State<RouteText> {
     setState(() {});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => RouteMap(animalList: animalList)),
+      MaterialPageRoute(builder: (context) => RouteMap(animalList: animalList, start: start)),
     );
   }
 
@@ -59,7 +64,7 @@ class _RouteTextState extends State<RouteText> {
     setState(() {});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => LocationChange(animalList: animalList)),
+      MaterialPageRoute(builder: (context) => LocationChange(from: 'Text', animalList: animalList, start: start)),
     );
   }
 
@@ -108,7 +113,7 @@ class _RouteTextState extends State<RouteText> {
                       ),
                       onPressed: _moveToMap,
                       child: const Text(
-                        'Map View',
+                        'View Map Directions',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,

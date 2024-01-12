@@ -17,7 +17,7 @@ class DijkstrasAlgorithm {
 
   // to be edited by starting location
   int start = 0;
-  // void setStart (int value) => start = value; // may change to string
+  void setStart (int value) => start = value; // may change to string
   // int getStart () => start;
 
   // if animal selected is true

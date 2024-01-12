@@ -1,5 +1,3 @@
-// import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:zoo_route_planner/routeLogic.dart';
 import 'package:zoo_route_planner/routeMap.dart';
@@ -11,7 +9,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,24 +17,26 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const MyHomePage(animalList: []),
+      home: const MyHomePage(animalList: [], start: 0),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.animalList});
+  const MyHomePage({super.key, required this.animalList, required this.start});
 
   final List<bool> animalList;
+  final int start;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState(animalList: animalList);
+  State<MyHomePage> createState() => _MyHomePageState(animalList: animalList, start: start);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  _MyHomePageState({required this.animalList, required this.start});
 
   List<bool> animalList;
-  _MyHomePageState({required this.animalList});
+  int start;
 
   // this could eventually become a map depending on what functionality is needed
   List animalNames = ['A zero', 'B one', 'C two', 'D three', 'E four', 'F five', 'G six', 'H seven', 'I eight'];
@@ -49,16 +48,14 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    // set local animalSelected to the passed animal list when applicable
+    /// set local animalSelected to the passed animal list when applicable
     if (animalList.isNotEmpty) {
       animalSelected.clear();
       animalSelected.addAll(animalList);
 
-      // add animals as selected that are selected
+      /// add animals as selected that are selected
       for (int i = 0; i < animalSelected.length; i++) {
-        if (animalSelected[i]) {
-          selectedAnimals.add(animalNames[i]);
-        }
+        if (animalSelected[i]) selectedAnimals.add(animalNames[i]);
       }
       selectedAnimals.sort();
     }
@@ -68,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState((){});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => RouteMap(animalList: animalSelected)),
+      MaterialPageRoute(builder: (context) => RouteMap(animalList: animalSelected, start: start)),
     );
   }
 
@@ -133,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           body: TabBarView(
             children: [
-              // "Add" Tab
+              /// "Add" Tab
               CustomScrollView(
                 slivers: [
                   const SliverAppBar(
@@ -173,7 +170,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-              // "Selected" Tab
+              /// "Selected" Tab
               CustomScrollView(
                 slivers: [
                   SliverList(

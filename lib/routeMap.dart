@@ -4,24 +4,26 @@ import 'package:zoo_route_planner/main.dart';
 import 'package:zoo_route_planner/routeText.dart';
 
 class RouteMap extends StatefulWidget {
-  const RouteMap({super.key, required this.animalList});
+  const RouteMap({super.key, required this.animalList, required this.start});
 
   final List<bool> animalList;
+  final int start;
 
   @override
-  State<RouteMap> createState() => _RouteMapState(animalList: animalList);
+  State<RouteMap> createState() => _RouteMapState(animalList: animalList, start: start);
 }
 
 class _RouteMapState extends State<RouteMap> {
+  _RouteMapState({required this.animalList, required this.start});
 
   List<bool> animalList = [];
-  _RouteMapState({required this.animalList});
+  int start;
 
   void _moveToPlan () {
     setState((){});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MyHomePage(animalList: animalList,)),
+      MaterialPageRoute(builder: (context) => MyHomePage(animalList: animalList, start: start)),
     );
   }
 
@@ -29,7 +31,7 @@ class _RouteMapState extends State<RouteMap> {
     setState(() {});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => RouteText(animalList: animalList)),
+      MaterialPageRoute(builder: (context) => RouteText(animalList: animalList, start: start)),
     );
   }
 
@@ -37,7 +39,7 @@ class _RouteMapState extends State<RouteMap> {
     setState(() {});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => LocationChange(animalList: animalList,)),
+      MaterialPageRoute(builder: (context) => LocationChange(from: 'Map', animalList: animalList, start: start)),
     );
   }
 
@@ -84,7 +86,7 @@ class _RouteMapState extends State<RouteMap> {
                   ),
                   onPressed: _moveToText,
                   child: const Text(
-                    'Text View',
+                    'View Text Directions',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 20,
