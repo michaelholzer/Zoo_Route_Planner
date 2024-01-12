@@ -15,17 +15,29 @@ class RouteText extends StatefulWidget {
 }
 
 class _RouteTextState extends State<RouteText> {
-  List<bool> animalList = [];
+  List<bool> animalList;
   List order = [];
   _RouteTextState({required this.animalList});
+  // List<bool> visitList = animalList;
 
   static final DijkstrasAlgorithm algorithm = DijkstrasAlgorithm();
 
   @override
   void initState() {
     super.initState();
-    algorithm.RunAlgorithm(animalList);
+    // save information from animalList
+    List<bool> tempList = [];
+    tempList.addAll(animalList);
+    algorithm.setVisitState(animalList);
+    // this next line sets animalList to false (for some reason)
+    algorithm.runAlgorithm();
     order = algorithm.getFullOrder();
+    // repair lists
+    animalList.clear();
+    animalList.addAll(tempList);
+    // for debug purposes
+    print(animalList);
+    print(order);
   }
 
   void _moveToPlan () {
@@ -51,17 +63,6 @@ class _RouteTextState extends State<RouteText> {
       MaterialPageRoute(builder: (context) => LocationChange(title: 'locationChange', animalList: animalList,)),
     );
   }
-  
-  void _refresh () {
-    setState(() {});
-    algorithm.RunAlgorithm(animalList);
-    order = algorithm.getFullOrder();
-  }
-
-  // String _getText (int index) {
-  //   setState(() {});
-  //   return algorithm.getLocationOrder(index).toString();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -116,11 +117,6 @@ class _RouteTextState extends State<RouteText> {
                       ),
                     ),
                   ),
-                  Container(
-                    child: ElevatedButton(
-                      onPressed: _refresh, child: Text('Refresh'),
-                    ),
-                  )
                 ],
               ),
             ),
@@ -148,16 +144,12 @@ class _RouteTextState extends State<RouteText> {
                                 borderRadius: const BorderRadius.all(Radius.circular(2)),
                               ),
                               child: Text(
-                                // 'Step $index:\ntest',
-                                // (_getText(index)),
                                 order[index].toString(),
-                                // algorithm.getLocationOrder(index),
                                 style: const TextStyle(fontSize: 20,),
                               )
                             ),
                           );
                         },
-                        // childCount: algorithm.getOrderAmount(),
                         childCount: order.length,
                       )
                     )

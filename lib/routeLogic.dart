@@ -22,25 +22,23 @@ class DijkstrasAlgorithm {
 
   // if animal selected is true
   List<bool> toVisit = List.filled(amount, false);
-  void setState (int index, bool state) => toVisit[index] = state;
-  bool getState (int index) => toVisit[index];
+  // void setState (int index, bool state) => toVisit[index] = state;
+  // bool getState (int index) => toVisit[index];
+  void setVisitState(List<bool> visits) => toVisit = visits;
 
   List locationOrder = [];
   void setLocationOrder(List<int> order) => locationOrder = order;
-  String getLocationOrder(int index) => locationOrder[index].toString();
-  int getOrderAmount() => locationOrder.length;
-  List getFullOrder () {
-    print(locationOrder);
-    return locationOrder;
-  }
+  // String getLocationOrder(int index) => locationOrder[index].toString();
+  // int getOrderAmount() => locationOrder.length;
+  List getFullOrder () => locationOrder;
 
-  void RunAlgorithm (List<bool> toSee) {
+  void runAlgorithm () {
     // starting location is visited
-    toSee[start] = false;
+    toVisit[start] = false;
     // add start location to beginning of list
     List<int> finalList = [start];
     // add the rest of the steps
-    finalList.addAll(_recursiveSearch(adjacencyMatrix, start, toSee));
+    finalList.addAll(_recursiveSearch(adjacencyMatrix, start, toVisit));
     setLocationOrder(finalList);
   }
   
@@ -53,11 +51,10 @@ class DijkstrasAlgorithm {
     checks[start] = false;
     int nextVertex = _minDistance(solutions[0], checks);
     path.add(nextVertex);
-    print(start.toString());
+    // ****NEED TO IMPLEMENT TO SHOW FULL STEPS****
     // path.addAll(_fullPath(nextVertex, solutions[1], start));
 
     if (_allVisited(checks)) {
-      print(path);
       return path;
     } else {
       path.addAll(_recursiveSearch(graph, nextVertex, checks));

@@ -1,4 +1,4 @@
-import 'dart:ui';
+// import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:zoo_route_planner/routeLogic.dart';
@@ -58,11 +58,11 @@ class _MyHomePageState extends State<MyHomePage> {
       animalSelected[index] = !animalSelected[index];
       if (animalSelected[index]) {
         selectedAnimals.add(animalNames[index]);
-        algorithm.setState(index, true);
+        // algorithm.setState(index, true);
         selectedAnimals.sort();
       } else {
         selectedAnimals.remove(animalNames[index]);
-        algorithm.setState(index, false);
+        // algorithm.setState(index, false);
       }
     });
   }
