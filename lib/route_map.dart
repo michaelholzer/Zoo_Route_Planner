@@ -23,7 +23,98 @@ class _RouteMapState extends State<RouteMap> {
   List<bool> animalList = [];
   int start;
 
+  List order = [];
+
   final DijkstrasAlgorithm algorithm = DijkstrasAlgorithm();
+
+  List<Marker> allMarkers = [];
+  List<Polyline> allLines = [];
+  List<Polyline> routeLines = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    /// Save information from animalList
+    List<bool> tempList = [];
+    tempList.addAll(animalList);
+    /// Set algorithm values to  user inputted values
+    algorithm.setVisitState(animalList);
+    algorithm.setStart(start);
+    /// This next line sets animalList to false (for some reason)
+    algorithm.runAlgorithm();
+    order = algorithm.getFullOrder();
+    /// Repair list so animalList isn't false for all values
+    animalList.clear();
+    animalList.addAll(tempList);
+
+    /// Set Markers for every location
+    for (int i = 0; i < algorithm.getAmount(); i++) {
+      allMarkers.add(
+        Marker(
+          height: 12,
+          width: 12,
+          point: LatLng(algorithm.getXCoordinate(i), algorithm.getYCoordinate(i)),
+          child: ColoredBox(
+            color: (animalList[i]) ? Colors.green : Colors.black,
+            child: Text(algorithm.getName(i)),                                    // this line works but is not visible
+          ),
+        ),
+      );
+    }
+    // the following draws all possible legal lines
+    // i mean it don't leave it like this
+    // for (int i = 0; i < algorithm.getAmount(); i++) {
+    //   for (int j = 0; j < algorithm.getAmount(); j++) {
+    //     if (algorithm.pointsConnect(i, j)) {
+    //       allLines.add(
+    //         Polyline(
+    //           color: Colors.red, strokeWidth: 1,
+    //           points: [
+    //             LatLng(algorithm.getXCoordinate(i), algorithm.getYCoordinate(i)),
+    //             LatLng(algorithm.getXCoordinate(j), algorithm.getYCoordinate(j))
+    //           ]
+    //         )
+    //       );
+    //     }
+    //   }
+    // }
+
+    // better version
+    // for (int i = 0; i < order.length - 2; i++) {
+    //   routeLines.add(
+    //     Polyline(
+    //       color: Colors.black, strokeWidth: 2,
+    //       points: [
+    //         LatLng(algorithm.getXCoordinate(order[i]), algorithm.getYCoordinate(order[i])),
+    //         LatLng(algorithm.getXCoordinate(order[i+1]), algorithm.getYCoordinate(order[i+1]))
+    //       ]
+    //     )
+    //   );
+    // }
+
+    // best version
+    for (int i = 0; i < order.length - 2; i++) {
+      routeLines.add(
+        Polyline(
+          color: Colors.black, strokeWidth: 2,
+          points: [
+            LatLng(algorithm.getXCoordinate(order[i]), algorithm.getYCoordinate(order[i])),
+            LatLng(algorithm.getXCoordinate(order[i+1]), algorithm.getYCoordinate(order[i+1]))
+          ]
+        )
+      );
+      // if (!algorithm.pointsConnect(order[i], order[i+1])) {
+      //   List<int> tree = algorithm.getTree(order[i], order[i+1]);
+      //   routeLines[i].points.clear();
+      //   for (int j = 0; j < tree.length; j++) {
+      //     routeLines[i].points.add(LatLng(algorithm.getXCoordinate(tree[j]), algorithm.getYCoordinate(tree[j])));
+      //   }
+      // }
+    }
+    // List<Polyline.points> pointTree = [];
+    // routeLines[0].points.
+  }
 
   void _moveToPlan () {
     setState((){});
@@ -104,12 +195,53 @@ class _RouteMapState extends State<RouteMap> {
             Expanded(
               flex: 75,
               child: Container(
-                  margin: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 2, color: Colors.black),
-                    borderRadius: const BorderRadius.all(Radius.circular(5)),
+                margin: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 2, color: Colors.black),
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
+                ),
+                // child: Text('This is the map, it\'s the map it\'s the map', style: Theme.of(context).textTheme.headlineSmall,)
+                child: FlutterMap(
+                  mapController: MapController(
+
                   ),
-                  child: Text('This is the map, it\'s the map it\'s the map', style: Theme.of(context).textTheme.headlineSmall,)
+                  options: MapOptions(
+                    /// Center map on San Diego Zoo
+                    initialCenter: const LatLng(32.736, -117.151),
+                    initialZoom: 16,
+                    minZoom: 16,
+                    maxZoom: 20,
+                    cameraConstraint: CameraConstraint.contain(
+                        bounds: LatLngBounds(
+                            const LatLng(32.7395, -117.1555),
+                            const LatLng(32.7325, -117.148)
+                        )
+                    ),
+                  ),
+                  children: [
+                    TileLayer(
+                      /// url gives map itself
+                      urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                      userAgentPackageName: 'edu.cpp.radio',
+                    ),
+                    MarkerLayer(
+                      // use for location markers
+                      markers: allMarkers,
+                    ),
+                    PolylineLayer(
+                      // use for route directions
+                      // polylines: allLines,
+                      polylines: routeLines,
+                    ),
+                    const RichAttributionWidget(
+                      attributions: [
+                        TextSourceAttribution(
+                          'OpenStreetMap contributors',
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               )
             ),
           ],

@@ -10,6 +10,21 @@ class DijkstrasAlgorithm {
     }
   }
 
+  /// Coordinate List for all points
+  List<List<double>> coordinates = [
+    [32.736, -117.1516],
+    [32.7363, -117.1513],
+    [32.7363, -117.151],
+    [32.7363, -117.1507],
+    [32.736, -117.1504],
+    [32.7357, -117.1507],
+    [32.7357, -117.151],
+    [32.7357, -117.1513],
+    [32.736, -117.151]
+  ];
+  double getXCoordinate (int index) => coordinates[index][0];
+  double getYCoordinate (int index) => coordinates[index][1];
+
   /// Matrix of distances between nodes for algorithm
   static List<List<int>> adjacencyMatrix = [
     [  0,  4,  0,  0,  0,  0,  0,  8,  0 ],
@@ -22,6 +37,10 @@ class DijkstrasAlgorithm {
     [  8, 11,  0,  0,  0,  0,  1,  0,  7 ],
     [  0,  0,  2,  0,  0,  0,  6,  7,  0 ]
   ];
+
+  /// Return true if there is a connection between two locations
+  bool pointsConnect (int one, int two) => (adjacencyMatrix[one][two] > 0);
+
   /// Amount of locations in the matrix
   static int amount = adjacencyMatrix.length;
   int getAmount () => amount;
@@ -43,6 +62,32 @@ class DijkstrasAlgorithm {
   // String getLocationOrder(int index) => locationOrder[index].toString();
   // int getOrderAmount() => locationOrder.length;
   List getFullOrder () => locationOrder;
+
+  /// Holds parent vertex to create shortest path tree
+  // List<int> _parents = [];
+  // int getParent(int index) => _parents[index];
+  List<int> getTree (int a, int b) {
+
+    List<List<int>> result = _dijkstra(adjacencyMatrix, a);
+
+    print(a);
+    print(b);
+    print(result[1]);
+
+    List<int> tree = _fullPath(b, result[1], a);
+
+    return tree;
+  }
+
+  /// Gives step by step shortest path from one vertex to another
+  List<int> _fullPath (int currentVertex, List<int> parents, int start) {
+    List<int> list = [currentVertex];
+    if (currentVertex == start) {
+      return list;
+    }
+    list.addAll(_fullPath(parents[currentVertex], parents, start));
+    return list;
+  }
 
   /// Calls the recursive function to give desired output
   void runAlgorithm () {
@@ -66,6 +111,7 @@ class DijkstrasAlgorithm {
     path.add(nextVertex);
     // ****NEED TO IMPLEMENT TO SHOW FULL STEPS****
     // path.addAll(_fullPath(nextVertex, solutions[1], start));
+    // _parents = solutions[1];
 
     /// Once all vertices are visited, return result
     if (_allVisited(checks)) {
@@ -105,16 +151,6 @@ class DijkstrasAlgorithm {
 
     return minIndex;
   }
-
-  // To be implemented later
-  // List<int> _fullPath (int currentVertex, List<int> parents, start) {
-  //   List<int> list = [currentVertex];
-  //   if (currentVertex == start) {
-  //     return list;
-  //   }
-  //   list.addAll(_fullPath(parents[currentVertex], parents, start));
-  //   return list;
-  // }
 
   /// Main logistical function that computes Dijkstra's Algorithm
   List<List<int>> _dijkstra (List<List<int>> graph, int start) {

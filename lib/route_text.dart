@@ -28,6 +28,7 @@ class _RouteTextState extends State<RouteText> {
   @override
   void initState() {
     super.initState();
+
     /// Save information from animalList
     List<bool> tempList = [];
     tempList.addAll(animalList);
@@ -40,9 +41,6 @@ class _RouteTextState extends State<RouteText> {
     /// Repair list so animalList isn't false for all values
     animalList.clear();
     animalList.addAll(tempList);
-    // for debug purposes
-    print(animalList);
-    print(order);
   }
 
   void _moveToPlan () {
