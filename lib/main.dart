@@ -107,23 +107,22 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             bottom: const TabBar(
+              dividerHeight: 3,
+              dividerColor: Colors.lightGreen,
+              indicatorColor: Colors.black,
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.black54,
               tabs: [
                 Tab(
                   child: Text(
                     'Add',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 30,
-                    ),
+                    style: TextStyle(fontSize: 30,),
                   ),
                 ),
                 Tab(
                   child: Text(
                     'Selected',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 30,
-                    ),
+                    style: TextStyle(fontSize: 30,),
                   ),
                 ),
               ],

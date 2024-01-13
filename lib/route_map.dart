@@ -50,21 +50,28 @@ class _RouteMapState extends State<RouteMap> {
 
     /// Set Markers for every location
     for (int i = 0; i < algorithm.getAmount(); i++) {
+      Color markerColor = Colors.black;
+      double heightWidth = 15;
+      if (i == start) {
+        markerColor = Colors.blue;
+        heightWidth = 30;
+      } else if (animalList[i]) {
+        markerColor = Colors.green;
+        heightWidth = 30;
+      }
+
       allMarkers.add(
         Marker(
-          height: 12,
-          width: 12,
+          height: heightWidth,
+          width: heightWidth,
           point: LatLng(algorithm.getXCoordinate(i), algorithm.getYCoordinate(i)),
-          child: ColoredBox(
-            color: (animalList[i]) ? Colors.green : Colors.black,
-            child: Text(algorithm.getName(i)),                                    // this line works but is not visible
-          ),
+          child: ColoredBox(color: markerColor,),
         ),
       );
     }
 
     List<int> trueOrder = [];
-    // best version
+    /// Add lines for route and add details to order
     for (int i = 0; i < order.length - 2; i++) {
       routeLines.add(
         Polyline(
@@ -90,6 +97,7 @@ class _RouteMapState extends State<RouteMap> {
     trueOrder.add(order[order.length - 2]);
     order.clear();
     order.addAll(trueOrder);
+    order.add(-1); /// -1 signifies end of route
   }
 
   void _moveToPlan () {
@@ -119,105 +127,126 @@ class _RouteMapState extends State<RouteMap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        backgroundColor: Colors.green,
+        title: const Text(
+          'Map of your Route',
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(
-              flex: 15,
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    side: const BorderSide(
-                      width: 2,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  onPressed: _moveToLocation,
-                  child: Text(
-                    'Current Location:\n${algorithm.getName(start)}',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 25,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 10,
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    side: const BorderSide(
-                      width: 2,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  onPressed: _moveToText,
-                  child: const Text(
-                    'View Text Directions',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 75,
-              child: Container(
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  border: Border.all(width: 2, color: Colors.black),
-                  borderRadius: const BorderRadius.all(Radius.circular(5)),
-                ),
-                // child: Text('This is the map, it\'s the map it\'s the map', style: Theme.of(context).textTheme.headlineSmall,)
-                child: FlutterMap(
-                  mapController: MapController(
-
-                  ),
-                  options: MapOptions(
-                    /// Center map on San Diego Zoo
-                    initialCenter: const LatLng(32.736, -117.151),
-                    initialZoom: 17,
-                    minZoom: 16,
-                    maxZoom: 20,
-                    cameraConstraint: CameraConstraint.contain(
-                        bounds: LatLngBounds(
-                            const LatLng(32.7395, -117.1555),
-                            const LatLng(32.7325, -117.148)
-                        )
-                    ),
-                  ),
-                  children: [
-                    TileLayer(
-                      /// url gives map itself
-                      urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                      userAgentPackageName: 'edu.cpp.radio',
-                    ),
-                    MarkerLayer(
-                      // use for location markers
-                      markers: allMarkers,
-                    ),
-                    PolylineLayer(
-                      // use for route directions
-                      // polylines: allLines,
-                      polylines: routeLines,
-                    ),
-                    const RichAttributionWidget(
-                      attributions: [
-                        TextSourceAttribution(
-                          'OpenStreetMap contributors',
+              flex: 13,
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 66,
+                    child: Container(
+                      padding: const EdgeInsets.all(7),
+                      color: Colors.lightGreen,
+                      height: 100,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20))
+                          ),
+                          side: const BorderSide(
+                            width: 2,
+                            color: Colors.grey,
+                          ),
                         ),
-                      ],
+                        onPressed: _moveToLocation,
+                        child: Text(
+                          'Current Location:\n${algorithm.getName(start)}',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 24,
+                          ),
+                        ),
+                      ),
                     ),
-                  ],
+                  ),
+                  Expanded(
+                    flex: 34,
+                    child: Container(
+                      padding: const EdgeInsets.all(7),
+                      color: Colors.lightGreen,
+                      height: 100,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(25))
+                          ),
+                          side: const BorderSide(
+                            width: 2,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        onPressed: _moveToText,
+                        child: const Text(
+                          'View as\nText',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 87,
+              child: FlutterMap(
+                mapController: MapController(
+
                 ),
+                options: MapOptions(
+                  /// Center map on San Diego Zoo
+                  initialCenter: const LatLng(32.736, -117.151),
+                  initialZoom: 17,
+                  minZoom: 16,
+                  maxZoom: 20,
+                  cameraConstraint: CameraConstraint.contain(
+                      bounds: LatLngBounds(
+                          const LatLng(32.7395, -117.1555),
+                          const LatLng(32.7325, -117.148)
+                      )
+                  ),
+                ),
+                children: [
+                  TileLayer(
+                    /// url gives map itself
+                    urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    userAgentPackageName: 'edu.cpp.radio',
+                  ),
+                  PolylineLayer(
+                    // use for route directions
+                    polylines: routeLines,
+                  ),
+                  MarkerLayer(
+                    // use for location markers
+                    markers: allMarkers,
+                  ),
+                  const RichAttributionWidget(
+                    attributions: [
+                      TextSourceAttribution(
+                        'OpenStreetMap contributors',
+                      ),
+                    ],
+                  ),
+                ],
               )
             ),
           ],

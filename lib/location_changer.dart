@@ -65,7 +65,7 @@ class _LocationChangeState extends State<LocationChange> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: Text('Current Location: ${algorithm.getName(start)}'),
+        title: Text('Starting Location: ${algorithm.getName(start)}'),
         automaticallyImplyLeading: false,
       ),
       body: CustomScrollView(

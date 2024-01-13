@@ -41,6 +41,24 @@ class _RouteTextState extends State<RouteText> {
     /// Repair list so animalList isn't false for all values
     animalList.clear();
     animalList.addAll(tempList);
+
+    List<int> trueOrder = [];
+    /// Add lines for route and add details to order
+    for (int i = 0; i < order.length - 2; i++) {
+      if (!algorithm.pointsConnect(order[i], order[i+1])) {
+        List<int> tree = algorithm.getTree(order[i], order[i+1]);
+        /// Tree is in reversed order, so a reversed order for statement fetches the correct order
+        for (int j = tree.length - 1; j >= 0; j--) {
+          if (j != 0) trueOrder.add(tree[j]);
+        }
+      } else {
+        trueOrder.add(order[i]);
+      }
+    }
+    trueOrder.add(order[order.length - 2]);
+    order.clear();
+    order.addAll(trueOrder);
+    order.add(-1); /// -1 signifies end of route
   }
 
   void _moveToPlan () {
@@ -70,65 +88,89 @@ class _RouteTextState extends State<RouteText> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.green,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        backgroundColor: Colors.green,
+        title: const Text(
+          'Directions of your Route',
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(
-              flex: 15,
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    side: const BorderSide(
-                      width: 2,
-                      color: Colors.grey,
+              flex: 13,
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 66,
+                    child: Container(
+                      padding: const EdgeInsets.all(7),
+                      color: Colors.lightGreen,
+                      height: 100,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20))
+                          ),
+                          side: const BorderSide(
+                            width: 2,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        onPressed: _moveToLocation,
+                        child: Text(
+                          'Current Location:\n${algorithm.getName(start)}',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 24,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                  onPressed: _moveToLocation,
-                  child: Text(
-                    'Current Location:\n${algorithm.getName(start)}',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 25,
+                  Expanded(
+                    flex: 34,
+                    child: Container(
+                      padding: const EdgeInsets.all(7),
+                      color: Colors.lightGreen,
+                      height: 100,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(25))
+                          ),
+                          side: const BorderSide(
+                            width: 2,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        onPressed: _moveToMap,
+                        child: const Text(
+                          'View as\nMap',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
             ),
             Expanded(
-              flex: 10,
+              flex: 87,
               child: Container(
-                padding: const EdgeInsets.all(10),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    side: const BorderSide(
-                      width: 2,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  onPressed: _moveToMap,
-                  child: const Text(
-                    'View Map Directions',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 75,
-              child: Container(
-                width: double.infinity,
-                margin: const EdgeInsets.all(10),
-                decoration: const BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                ),
+                color: Colors.grey,
                 child: CustomScrollView(
                   slivers: [
                     SliverList(
