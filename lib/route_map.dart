@@ -62,37 +62,8 @@ class _RouteMapState extends State<RouteMap> {
         ),
       );
     }
-    // the following draws all possible legal lines
-    // i mean it don't leave it like this
-    // for (int i = 0; i < algorithm.getAmount(); i++) {
-    //   for (int j = 0; j < algorithm.getAmount(); j++) {
-    //     if (algorithm.pointsConnect(i, j)) {
-    //       allLines.add(
-    //         Polyline(
-    //           color: Colors.red, strokeWidth: 1,
-    //           points: [
-    //             LatLng(algorithm.getXCoordinate(i), algorithm.getYCoordinate(i)),
-    //             LatLng(algorithm.getXCoordinate(j), algorithm.getYCoordinate(j))
-    //           ]
-    //         )
-    //       );
-    //     }
-    //   }
-    // }
 
-    // better version
-    // for (int i = 0; i < order.length - 2; i++) {
-    //   routeLines.add(
-    //     Polyline(
-    //       color: Colors.black, strokeWidth: 2,
-    //       points: [
-    //         LatLng(algorithm.getXCoordinate(order[i]), algorithm.getYCoordinate(order[i])),
-    //         LatLng(algorithm.getXCoordinate(order[i+1]), algorithm.getYCoordinate(order[i+1]))
-    //       ]
-    //     )
-    //   );
-    // }
-
+    List<int> trueOrder = [];
     // best version
     for (int i = 0; i < order.length - 2; i++) {
       routeLines.add(
@@ -104,16 +75,21 @@ class _RouteMapState extends State<RouteMap> {
           ]
         )
       );
-      // if (!algorithm.pointsConnect(order[i], order[i+1])) {
-      //   List<int> tree = algorithm.getTree(order[i], order[i+1]);
-      //   routeLines[i].points.clear();
-      //   for (int j = 0; j < tree.length; j++) {
-      //     routeLines[i].points.add(LatLng(algorithm.getXCoordinate(tree[j]), algorithm.getYCoordinate(tree[j])));
-      //   }
-      // }
+      if (!algorithm.pointsConnect(order[i], order[i+1])) {
+        List<int> tree = algorithm.getTree(order[i], order[i+1]);
+        routeLines[i].points.clear();
+        /// Tree is in reversed order, so a reversed order for statement fetches the correct order
+        for (int j = tree.length - 1; j >= 0; j--) {
+          routeLines[i].points.add(LatLng(algorithm.getXCoordinate(tree[j]), algorithm.getYCoordinate(tree[j])));
+          if (j != 0) trueOrder.add(tree[j]);
+        }
+      } else {
+        trueOrder.add(order[i]);
+      }
     }
-    // List<Polyline.points> pointTree = [];
-    // routeLines[0].points.
+    trueOrder.add(order[order.length - 2]);
+    order.clear();
+    order.addAll(trueOrder);
   }
 
   void _moveToPlan () {
@@ -208,7 +184,7 @@ class _RouteMapState extends State<RouteMap> {
                   options: MapOptions(
                     /// Center map on San Diego Zoo
                     initialCenter: const LatLng(32.736, -117.151),
-                    initialZoom: 16,
+                    initialZoom: 17,
                     minZoom: 16,
                     maxZoom: 20,
                     cameraConstraint: CameraConstraint.contain(

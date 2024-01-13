@@ -70,10 +70,6 @@ class DijkstrasAlgorithm {
 
     List<List<int>> result = _dijkstra(adjacencyMatrix, a);
 
-    print(a);
-    print(b);
-    print(result[1]);
-
     List<int> tree = _fullPath(b, result[1], a);
 
     return tree;
@@ -109,7 +105,7 @@ class DijkstrasAlgorithm {
     checks[start] = false;
     int nextVertex = _minDistance(solutions[0], checks);
     path.add(nextVertex);
-    // ****NEED TO IMPLEMENT TO SHOW FULL STEPS****
+
     // path.addAll(_fullPath(nextVertex, solutions[1], start));
     // _parents = solutions[1];
 
@@ -175,21 +171,22 @@ class DijkstrasAlgorithm {
 
       /// Find shorter distance and associated index
       for (int vIndex = 0; vIndex < amount; vIndex++) {
-        if (!added[vIndex] && outputs[0][vIndex] < shortestDistance) {
+        if (!added[vIndex] && (outputs[0][vIndex] < shortestDistance)) {
           nearestVertex = vIndex;
           shortestDistance = outputs[0][vIndex];
         }
       }
 
       /// Nearest vertex marked is processed
-      added[nearestVertex];
+      added[nearestVertex] = true;
 
       /// Update distance value of adjacent vertices
       for (int vIndex = 0; vIndex < amount; vIndex++) {
         int edgeDistance = graph[nearestVertex][vIndex];
 
+        // issue inside this function
         /// Update path tree when necessary
-        if (edgeDistance > 0 && ((shortestDistance + edgeDistance) < outputs[0][vIndex])) {
+        if ((edgeDistance > 0) && ((shortestDistance + edgeDistance) < outputs[0][vIndex])) {
           outputs[0][vIndex] = shortestDistance + edgeDistance;
           outputs[1][vIndex] = nearestVertex;
         }
