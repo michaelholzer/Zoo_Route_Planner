@@ -178,7 +178,7 @@ class _RouteMapState extends State<RouteMap> {
                         ),
                         onPressed: _moveToLocation,
                         child: Text(
-                          'Current Location:\n${algorithm.getName(start)}',
+                          'Starting Location:\n${algorithm.getName(start)}',
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: Colors.black,
@@ -249,6 +249,7 @@ class _RouteMapState extends State<RouteMap> {
                     polylines: routeLines,
                   ),
                   MarkerLayer(
+                    rotate: true,
                     // use for location markers
                     markers: allMarkers,
                   ),

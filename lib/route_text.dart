@@ -126,7 +126,7 @@ class _RouteTextState extends State<RouteText> {
                         ),
                         onPressed: _moveToLocation,
                         child: Text(
-                          'Current Location:\n${algorithm.getName(start)}',
+                          'Starting Location:\n${algorithm.getName(start)}',
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: Colors.black,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:zoo_route_planner/route_logic.dart';
 import 'package:zoo_route_planner/route_map.dart';
 
@@ -89,14 +90,17 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _removeAnimal (int index) {
+    setState(() {});
+    animalSelected[algorithm.returnIndex(selectedAnimals[index])] = false;
+    algorithm.setState(algorithm.returnIndex(selectedAnimals[index]), false);
+    selectedAnimals.remove(selectedAnimals[index]);
+  }
+
   void _searchChanged(String search) {
     setState(() {});
     _searchResults = _allNames.where((element) => element.toLowerCase().contains(search.toLowerCase())).toList();
   }
-
-  // bool _trueSelected (int index) {
-  //   return _selectedLocation[algorithm.returnIndex(_searchResults[index])];
-  // }
 
   int _trueIndex (int index) {
     return algorithm.returnIndex(_searchResults[index]);
@@ -148,6 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           body: TabBarView(
             children: [
+              /// "Add" Tab
               Column(
                 children: [
                   TextField(
@@ -200,46 +205,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ]
               ),
-              /// "Add" Tab
-              // CustomScrollView(
-              //   slivers: [
-              //     const SliverAppBar(
-              //       automaticallyImplyLeading: false,
-              //       pinned: true,
-              //       title: Text('(Future) Search'),
-              //       backgroundColor: Colors.red,
-              //       expandedHeight: 50,
-              //     ),
-              //     SliverList(
-              //       delegate: SliverChildBuilderDelegate(
-              //         (context, index) {
-              //           return ListTile(
-              //             minVerticalPadding: 2,
-              //             dense: true,
-              //             title: OutlinedButton(
-              //               style: OutlinedButton.styleFrom(
-              //                 shape: const RoundedRectangleBorder(
-              //                   borderRadius: BorderRadius.all(Radius.circular(10))
-              //                 ),
-              //                 backgroundColor: animalSelected[index] ? Colors.blue : Colors.grey,
-              //                 side: const BorderSide(width: 2, color: Colors.black,),
-              //               ),
-              //               onPressed: () { _changeAnimalState(index); },
-              //               child:Text(
-              //                 algorithm.getName(index),
-              //                 style: const TextStyle(
-              //                   color: Colors.black,
-              //                   fontSize: 20,
-              //                 ),
-              //               )
-              //             )
-              //           );
-              //         },
-              //         childCount: algorithm.getAmount(),
-              //       ),
-              //     ),
-              //   ],
-              // ),
               /// "Selected" Tab
               CustomScrollView(
                 slivers: [
@@ -249,6 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         return ListTile(
                           minVerticalPadding: 5,
                           dense: true,
+                          onTap: () {_removeAnimal(index);},
                           title: Text(
                             (selectedAnimals.isEmpty) ? "No Animals Selected" : selectedAnimals[index],
                             style: TextStyle(
