@@ -121,7 +121,7 @@ class _RouteTextState extends State<RouteText> {
                           ),
                           side: const BorderSide(
                             width: 2,
-                            color: Colors.grey,
+                            color: Colors.black,
                           ),
                         ),
                         onPressed: _moveToLocation,
@@ -149,7 +149,7 @@ class _RouteTextState extends State<RouteText> {
                           ),
                           side: const BorderSide(
                             width: 2,
-                            color: Colors.grey,
+                            color: Colors.black,
                           ),
                         ),
                         onPressed: _moveToMap,

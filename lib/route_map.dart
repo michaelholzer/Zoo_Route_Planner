@@ -52,12 +52,15 @@ class _RouteMapState extends State<RouteMap> {
     for (int i = 0; i < algorithm.getAmount(); i++) {
       Color markerColor = Colors.black;
       double heightWidth = 15;
+      String boxNumber = '';
       if (i == start) {
         markerColor = Colors.blue;
         heightWidth = 30;
+        boxNumber = '0';
       } else if (animalList[i]) {
         markerColor = Colors.green;
         heightWidth = 30;
+        boxNumber = order.indexOf(i).toString();
       }
 
       allMarkers.add(
@@ -65,7 +68,17 @@ class _RouteMapState extends State<RouteMap> {
           height: heightWidth,
           width: heightWidth,
           point: LatLng(algorithm.getXCoordinate(i), algorithm.getYCoordinate(i)),
-          child: ColoredBox(color: markerColor,),
+          child: ColoredBox(
+            color: markerColor,
+            child: Text(
+              boxNumber,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+              ),
+            ),
+          ),
         ),
       );
     }
@@ -160,7 +173,7 @@ class _RouteMapState extends State<RouteMap> {
                           ),
                           side: const BorderSide(
                             width: 2,
-                            color: Colors.grey,
+                            color: Colors.black,
                           ),
                         ),
                         onPressed: _moveToLocation,
@@ -188,7 +201,7 @@ class _RouteMapState extends State<RouteMap> {
                           ),
                           side: const BorderSide(
                             width: 2,
-                            color: Colors.grey,
+                            color: Colors.black,
                           ),
                         ),
                         onPressed: _moveToText,

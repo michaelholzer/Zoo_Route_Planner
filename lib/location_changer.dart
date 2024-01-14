@@ -25,6 +25,9 @@ class _LocationChangeState extends State<LocationChange> {
   final DijkstrasAlgorithm algorithm = DijkstrasAlgorithm();
 
   List<bool> _selectedLocation = [];
+  int newStart = -1;
+  List<String> _allNames = [];
+  List<String> _searchResults = [];
 
   @override
   void initState() {
@@ -32,6 +35,10 @@ class _LocationChangeState extends State<LocationChange> {
     /// Update local selectedLocation based on current start location
     _selectedLocation = List.filled(algorithm.getAmount(), false);
     _setLocation(start);
+
+    _allNames = algorithm.getAllNames();
+    _searchResults.addAll(_allNames);
+    newStart = start;
   }
 
   void _setLocation(int index) {
@@ -41,12 +48,13 @@ class _LocationChangeState extends State<LocationChange> {
       _selectedLocation[i] = false;
     }
     _selectedLocation[index] = true;
-    start = index;
+    newStart = index;
   }
 
   void _confirmLocation() {
     setState((){});
     /// Navigate back to text or map, wherever user came from
+    start = newStart;
     if (from == 'Map') {
       Navigator.push(
         context,
@@ -60,6 +68,19 @@ class _LocationChangeState extends State<LocationChange> {
     }
   }
 
+  void _searchChanged(String search) {
+    setState(() {});
+    _searchResults = _allNames.where((element) => element.toLowerCase().contains(search.toLowerCase())).toList();
+  }
+
+  bool _trueSelected (int index) {
+    return _selectedLocation[algorithm.returnIndex(_searchResults[index])];
+  }
+
+  int _trueIndex (int index) {
+    return algorithm.returnIndex(_searchResults[index]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,37 +89,50 @@ class _LocationChangeState extends State<LocationChange> {
         title: Text('Starting Location: ${algorithm.getName(start)}'),
         automaticallyImplyLeading: false,
       ),
-      body: CustomScrollView(
-        slivers: [
-          const SliverAppBar(
-            automaticallyImplyLeading: false,
-            pinned: true,
-            title: Text('(Future) Search'),
-            backgroundColor: Colors.red,
-            expandedHeight: 50,
+      body: Column(
+        children: [
+          TextField(
+            autofocus: false,
+            onChanged: _searchChanged,
+            decoration: InputDecoration(
+              hintText: 'Search',
+              hintStyle: const TextStyle(
+                fontSize: 20,
+              ),
+              prefixIcon: Container(
+                padding: const EdgeInsets.all(5),
+                child: const Icon(Icons.search),
+              ),
+            ),
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return ListTile(
-                  minVerticalPadding: 2,
-                  dense: true,
-                  title: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      backgroundColor: _selectedLocation[index] ? Colors.blue : Colors.grey,
-                    ),
-                    onPressed: () { _setLocation(index); },
-                    child: Text(
-                      algorithm.getName(index),
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                      ),
-                    ),
-                  )
-                );
-              },
-              childCount: algorithm.getAmount(),
+          Expanded(
+            child: CustomScrollView(
+              slivers: [
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      return ListTile(
+                        minVerticalPadding: 2,
+                        dense: true,
+                        title: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: _trueSelected(index) ? Colors.blue : Colors.grey,
+                          ),
+                          onPressed: () { _setLocation(_trueIndex(index)); },
+                          child: Text(
+                            _searchResults[index],
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                            ),
+                          ),
+                        )
+                      );
+                    },
+                    childCount: _searchResults.length,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -107,6 +141,7 @@ class _LocationChangeState extends State<LocationChange> {
         height: 60,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
+            backgroundColor: (newStart == start) ? Colors.white : Colors.lightGreen,
             side: const BorderSide(
               width: 1,
               color: Colors.black,

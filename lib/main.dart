@@ -41,6 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<bool> animalSelected = [false, false, false, false, false, false, false, false, false];
   List selectedAnimals = [];
+  List<String> _allNames = [];
+  List<String> _searchResults = [];
 
   final DijkstrasAlgorithm algorithm = DijkstrasAlgorithm();
 
@@ -58,6 +60,9 @@ class _MyHomePageState extends State<MyHomePage> {
       }
       selectedAnimals.sort();
     }
+
+    _allNames = algorithm.getAllNames();
+    _searchResults.addAll(_allNames);
   }
 
   void _moveToRoute () {
@@ -82,6 +87,19 @@ class _MyHomePageState extends State<MyHomePage> {
         algorithm.setState(index, false);
       }
     });
+  }
+
+  void _searchChanged(String search) {
+    setState(() {});
+    _searchResults = _allNames.where((element) => element.toLowerCase().contains(search.toLowerCase())).toList();
+  }
+
+  // bool _trueSelected (int index) {
+  //   return _selectedLocation[algorithm.returnIndex(_searchResults[index])];
+  // }
+
+  int _trueIndex (int index) {
+    return algorithm.returnIndex(_searchResults[index]);
   }
 
   @override
@@ -130,46 +148,98 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           body: TabBarView(
             children: [
-              /// "Add" Tab
-              CustomScrollView(
-                slivers: [
-                  const SliverAppBar(
-                    automaticallyImplyLeading: false,
-                    pinned: true,
-                    title: Text('(Future) Search'),
-                    backgroundColor: Colors.red,
-                    expandedHeight: 50,
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return ListTile(
-                          minVerticalPadding: 2,
-                          dense: true,
-                          title: OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10))
-                              ),
-                              backgroundColor: animalSelected[index] ? Colors.blue : Colors.grey,
-                              side: const BorderSide(width: 2, color: Colors.black,),
-                            ),
-                            onPressed: () { _changeAnimalState(index); },
-                            child:Text(
-                              algorithm.getName(index),
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                              ),
-                            )
-                          )
-                        );
-                      },
-                      childCount: algorithm.getAmount(),
+              Column(
+                children: [
+                  TextField(
+                    autofocus: false,
+                    onChanged: _searchChanged,
+                    decoration: InputDecoration(
+                      hintText: 'Search',
+                      hintStyle: const TextStyle(
+                        fontSize: 20,
+                      ),
+                      prefixIcon: Container(
+                        padding: const EdgeInsets.all(5),
+                        child: const Icon(Icons.search),
+                      ),
                     ),
                   ),
-                ],
+                  Expanded(
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              return ListTile(
+                                minVerticalPadding: 2,
+                                dense: true,
+                                title: OutlinedButton(
+                                  style: OutlinedButton.styleFrom(
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(Radius.circular(10))
+                                    ),
+                                    backgroundColor: animalSelected[_trueIndex(index)] ? Colors.blue : Colors.grey,
+                                    side: const BorderSide(width: 2, color: Colors.black,),
+                                  ),
+                                  onPressed: () { _changeAnimalState(_trueIndex(index)); },
+                                  child:Text(
+                                    _searchResults[index],
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                    ),
+                                  )
+                                )
+                              );
+                            },
+                            childCount: _searchResults.length,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ]
               ),
+              /// "Add" Tab
+              // CustomScrollView(
+              //   slivers: [
+              //     const SliverAppBar(
+              //       automaticallyImplyLeading: false,
+              //       pinned: true,
+              //       title: Text('(Future) Search'),
+              //       backgroundColor: Colors.red,
+              //       expandedHeight: 50,
+              //     ),
+              //     SliverList(
+              //       delegate: SliverChildBuilderDelegate(
+              //         (context, index) {
+              //           return ListTile(
+              //             minVerticalPadding: 2,
+              //             dense: true,
+              //             title: OutlinedButton(
+              //               style: OutlinedButton.styleFrom(
+              //                 shape: const RoundedRectangleBorder(
+              //                   borderRadius: BorderRadius.all(Radius.circular(10))
+              //                 ),
+              //                 backgroundColor: animalSelected[index] ? Colors.blue : Colors.grey,
+              //                 side: const BorderSide(width: 2, color: Colors.black,),
+              //               ),
+              //               onPressed: () { _changeAnimalState(index); },
+              //               child:Text(
+              //                 algorithm.getName(index),
+              //                 style: const TextStyle(
+              //                   color: Colors.black,
+              //                   fontSize: 20,
+              //                 ),
+              //               )
+              //             )
+              //           );
+              //         },
+              //         childCount: algorithm.getAmount(),
+              //       ),
+              //     ),
+              //   ],
+              // ),
               /// "Selected" Tab
               CustomScrollView(
                 slivers: [

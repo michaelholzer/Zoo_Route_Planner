@@ -1,13 +1,17 @@
 class DijkstrasAlgorithm {
 
   /// List of names for all items
-  List names = ['A zero', 'B one', 'C two', 'D three', 'E four', 'F five', 'G six', 'H seven', 'I eight'];
+  List<String> names = ['A zero', 'B one', 'C two', 'D three', 'E four', 'F five', 'G six', 'H seven', 'I eight'];
   String getName (int index) {
     if (index == -1) {
       return "Destination Reached";
     } else {
       return names[index];
     }
+  }
+  List<String> getAllNames () => names;
+  int returnIndex (String name) {
+    return names.indexOf(name);
   }
 
   /// Coordinate List for all points
