@@ -51,7 +51,7 @@ class _RouteMapState extends State<RouteMap> {
 
     /// Set Markers for every location
     for (int i = 0; i < algorithm.getAmount(); i++) {
-      Color markerColor = Colors.black;
+      Color markerColor = Colors.brown;
       double heightWidth = 15;
       String boxNumber = '';
       if (i == start) {
@@ -62,6 +62,8 @@ class _RouteMapState extends State<RouteMap> {
         markerColor = Colors.green;
         heightWidth = 30;
         boxNumber = order.indexOf(i).toString();
+      } else if (!algorithm.isAnimal(i)) {
+        markerColor = Colors.blueGrey;
       }
 
       allMarkers.add(

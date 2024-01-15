@@ -1,32 +1,30 @@
 class DijkstrasAlgorithm {
 
   /// List of names for all items
-  // test names
-  // List<String> names = ['A zero', 'B one', 'C two', 'D three', 'E four', 'F five', 'G six', 'H seven', 'I eight'];
-  // true names
-  static List<String> names = [
-    'Andean Bear', 'Axolotl',                                         // 'A' count = 2
-    'Bashur Bridge Elevator',                                         // 'B' count = 1
-    'California Condor', 'Cheetah',                                   // 'C' count = 2
-    // D
-    'Elephant', 'Entrance', 'Exit',                                   // 'E' count = 3
-    'Fern Canyon',                                                    // 'F' count = 1
-    'Galapagos Tortoise', 'Giraffe', 'Gorilla',                       // 'G' count = 3
-    'Hamadryas Baboon', 'Harpy Eagle', 'Hummingbird',                 // 'H' count = 3
-    // I J
-    'Kangaroo Stop 1', 'Kangaroo Stop 3', 'Koala', 'Komodo Dragon',   // 'K' count = 4
-    'Lemur', 'Leopard', 'Lion',                                       // 'L' count = 3
+  /// New ones will be added in correct alphabetical order
+  static final List<String> names = [
+    'Andean Bear', 'Axolotl',                                                   /// 'A'
+    'Bashur Bridge Elevator',                                                   /// 'B'
+    'California Condor', 'Cheetah',                                             /// 'C'
+    /// 'D'
+    'Elephant', 'Entrance', 'Exit',                                             /// 'E'
+    'Fern Canyon',                                                              /// 'F'
+    'Galapagos Tortoise', 'Giraffe', 'Gorilla',                                 /// 'G'
+    'Hamadryas Baboon', 'Harpy Eagle', 'Hummingbird',                           /// 'H'
+    /// 'I', 'J'
+    'Kangaroo Stop 1', 'Kangaroo Stop 3', 'Koala', 'Komodo Dragon',             /// 'K'
+    'Lemur', 'Leopard', 'Lion',                                                 /// 'L'
     'Mandrill', 'Map Locator 03', 'Map Locator 04', 'Map Locator 08', 'Map Locator 11',
-    'Map Locator 13', 'Map Locator 15', 'Map Locator 20', 'Merekat',  // 'M' count = 9
-    // N
-    'Orangutan',                                                      // 'O' count = 1
-    'Penguin', 'Polar Bear',                                          // 'P' count = 2
-    // Q
-    'Red Panda',                                                      // 'R' count = 1
-    'Safari Kitchen',                                                 // 'S' count = 1
-    'Tasmanian Devil', 'Tiger',                                       // 'T' count = 2
-    // U V W X Y
-    'Zebra',                                                          // 'Z' count = 1
+    'Map Locator 13', 'Map Locator 15', 'Map Locator 20', 'Merekat',            /// 'M'
+    /// 'N'
+    'Orangutan',                                                                /// 'O'
+    'Penguin', 'Polar Bear',                                                    /// 'P'
+    /// 'Q'
+    'Red Panda',                                                                /// 'R'
+    'Safari Kitchen',                                                           /// 'S'
+    'Tasmanian Devil', 'Tiger',                                                 /// 'T'
+    /// 'U', 'V', 'W', 'X', 'Y'
+    'Zebra',                                                                    /// 'Z'
   ];
   String getName (int index) {
     if (index == -1) {
@@ -36,28 +34,22 @@ class DijkstrasAlgorithm {
     }
   }
   List<String> getAllNames () => names;
-  int returnIndex (String name) {
-    return names.indexOf(name);
-  }
+  int returnIndex (String name) => names.indexOf(name);
 
   /// Amount of locations in the lists
   static int amount = names.length;
   int getAmount () => amount;
 
-  /// Coordinate List for all points
-  // test coordinates
-  // List<List<double>> coordinates = [
-  //   [32.736, -117.1516], [32.7363, -117.1513], [32.7363, -117.151],
-  //   [32.7363, -117.1507], [32.736, -117.1504], [32.7357, -117.1507],
-  //   [32.7357, -117.151], [32.7357, -117.1513], [32.736, -117.151]
-  // ];
-  // true coordinate
-  // Generate list of all 0s
+  /// Generate lists of all 0s for coordinates and adjacency
   List<List<double>> coordinates = List<List>.generate(amount, (i) => List<int>.generate(2, (index) => 0, growable: false), growable: false).cast<List<double>>();
   List<List<int>> adjacencyMatrix = List<List>.generate(amount, (i) => List<int>.generate(amount, (index) => 0, growable: false), growable: false).cast<List<int>>();
-  // Set data with function call so data can be added on later in an easier manner
+  List<bool> animal = List<bool>.generate(amount, (index) => true);
+
+  /// The called function to set the data for coordinates and adjacency
+  /// This allows for future additions to be made seamlessly once a name has
+  ///   been added into the name list
   void assignData() {
-    // Coordinate data
+    /// Set the Coordinate data
     coordinates[names.indexOf('Andean Bear')] = [32.73625, -117.15013];
     coordinates[names.indexOf('Axolotl')] = [32.73329, -117.14888];
     coordinates[names.indexOf('Bashur Bridge Elevator')] = [32.73514, -117.15202];
@@ -98,7 +90,7 @@ class DijkstrasAlgorithm {
     coordinates[names.indexOf('Tiger')] = [32.73390, -117.15113];
     coordinates[names.indexOf('Zebra')] = [32.73379, -117.15474];
 
-    // Adjacency Data
+    /// Set the Adjacency Values
     adjacencyMatrix[names.indexOf('Andean Bear')][names.indexOf('Map Locator 08')] = 105;
     adjacencyMatrix[names.indexOf('Andean Bear')][names.indexOf('Map Locator 11')] = 103;
     adjacencyMatrix[names.indexOf('Axolotl')][names.indexOf('Hummingbird')] = 67;
@@ -195,52 +187,49 @@ class DijkstrasAlgorithm {
     adjacencyMatrix[names.indexOf('Tiger')][names.indexOf('Mandrill')] = 217;
     adjacencyMatrix[names.indexOf('Zebra')][names.indexOf('Polar Bear')] = 71;
     adjacencyMatrix[names.indexOf('Zebra')][names.indexOf('Harpy Eagle')] = 91;
+
+    /// Set non-animal locations as false
+    animal[names.indexOf('Bashur Bridge Elevator')] = false;
+    animal[names.indexOf('Entrance')] = false;
+    animal[names.indexOf('Exit')] = false;
+    animal[names.indexOf('Fern Canyon')] = false;
+    animal[names.indexOf('Kangaroo Stop 1')] = false;
+    animal[names.indexOf('Kangaroo Stop 3')] = false;
+    animal[names.indexOf('Map Locator 03')] = false;
+    animal[names.indexOf('Map Locator 04')] = false;
+    animal[names.indexOf('Map Locator 08')] = false;
+    animal[names.indexOf('Map Locator 11')] = false;
+    animal[names.indexOf('Map Locator 13')] = false;
+    animal[names.indexOf('Map Locator 15')] = false;
+    animal[names.indexOf('Map Locator 20')] = false;
+    animal[names.indexOf('Safari Kitchen')] = false;
   }
 
+  /// Access the individual coordinate values
   double getXCoordinate (int index) => coordinates[index][0];
   double getYCoordinate (int index) => coordinates[index][1];
-
-  /// Matrix of distances between nodes for algorithm
-  // test adjacency matrix
-  // static List<List<int>> adjacencyMatrix = [
-  //   [  0,  4,  0,  0,  0,  0,  0,  8,  0 ],
-  //   [  4,  0,  8,  0,  0,  0,  0, 11,  0 ],
-  //   [  0,  8,  0,  7,  0,  4,  0,  0,  2 ],
-  //   [  0,  0,  7,  0,  9, 14,  0,  0,  0 ],
-  //   [  0,  0,  0,  9,  0, 10,  0,  0,  0 ],
-  //   [  0,  0,  4, 14, 10,  0,  2,  0,  0 ],
-  //   [  0,  0,  0,  0,  0,  2,  0,  1,  6 ],
-  //   [  8, 11,  0,  0,  0,  0,  1,  0,  7 ],
-  //   [  0,  0,  2,  0,  0,  0,  6,  7,  0 ]
-  // ];
-  // true adjacency matrix
-  // Create empty list of all 0s
-  // Assign connections and weights
 
   /// Return true if there is a connection between two locations
   bool pointsConnect (int one, int two) => (adjacencyMatrix[one][two] > 0);
 
+  /// Return animal status
+  bool isAnimal (int index) => animal[index];
+
   /// Starting location
   int start = 0;
   void setStart (int value) => start = value;
-  // int getStart () => start;
 
   /// True if user wants to visit the animal
   List<bool> toVisit = List.filled(amount, false);
   void setState (int index, bool state) => toVisit[index] = state;
-  // bool getState (int index) => toVisit[index];
   void setVisitState(List<bool> visits) => toVisit = visits;
 
   /// The outputted list of animals in shortest order
   List locationOrder = [];
   void setLocationOrder(List<int> order) => locationOrder = order;
-  // String getLocationOrder(int index) => locationOrder[index].toString();
-  // int getOrderAmount() => locationOrder.length;
   List getFullOrder () => locationOrder;
 
-  /// Holds parent vertex to create shortest path tree
-  // List<int> _parents = [];
-  // int getParent(int index) => _parents[index];
+  /// Returns the shortest path tree
   List<int> getTree (int a, int b) {
 
     List<List<int>> result = _dijkstra(adjacencyMatrix, a);
@@ -280,9 +269,6 @@ class DijkstrasAlgorithm {
     checks[start] = false;
     int nextVertex = _minDistance(solutions[0], checks);
     path.add(nextVertex);
-
-    // path.addAll(_fullPath(nextVertex, solutions[1], start));
-    // _parents = solutions[1];
 
     /// Once all vertices are visited, return result
     if (_allVisited(checks)) {
@@ -359,7 +345,6 @@ class DijkstrasAlgorithm {
       for (int vIndex = 0; vIndex < amount; vIndex++) {
         int edgeDistance = graph[nearestVertex][vIndex];
 
-        // issue inside this function
         /// Update path tree when necessary
         if ((edgeDistance > 0) && ((shortestDistance + edgeDistance) < outputs[0][vIndex])) {
           outputs[0][vIndex] = shortestDistance + edgeDistance;

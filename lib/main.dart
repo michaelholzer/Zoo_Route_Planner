@@ -49,8 +49,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    animalSelected = List<bool>.generate(algorithm.getAmount(), (index) => false);
+
+    /// Initialize data and set all animals as not selected
     algorithm.assignData();
+    animalSelected = List<bool>.generate(algorithm.getAmount(), (index) => false);
+
     /// Set local animalSelected to the passed animal list when applicable
     if (animalList.isNotEmpty) {
       animalSelected.clear();
@@ -63,7 +66,12 @@ class _MyHomePageState extends State<MyHomePage> {
       selectedAnimals.sort();
     }
 
-    _allNames = algorithm.getAllNames();
+    _allNames.addAll(algorithm.getAllNames());
+    for (int i = algorithm.getAmount() - 1; i >= 0; i--) {
+      if (!algorithm.isAnimal(i)) {
+        _allNames.remove(algorithm.getName(i));
+      }
+    }
     _searchResults.addAll(_allNames);
   }
 
