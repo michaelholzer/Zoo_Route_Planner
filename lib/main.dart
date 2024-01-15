@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:zoo_route_planner/route_logic.dart';
 import 'package:zoo_route_planner/route_map.dart';
 
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: const MyHomePage(animalList: [], start: 0),
+      home: const MyHomePage(animalList: [], start: 6),     /// Start at the Entrance
     );
   }
 }
@@ -40,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<bool> animalList;
   int start;
 
-  List<bool> animalSelected = [false, false, false, false, false, false, false, false, false];
+  List<bool> animalSelected = [];
   List selectedAnimals = [];
   List<String> _allNames = [];
   List<String> _searchResults = [];
@@ -50,6 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    animalSelected = List<bool>.generate(algorithm.getAmount(), (index) => false);
+    algorithm.assignData();
     /// Set local animalSelected to the passed animal list when applicable
     if (animalList.isNotEmpty) {
       animalSelected.clear();

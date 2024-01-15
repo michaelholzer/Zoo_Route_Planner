@@ -28,6 +28,7 @@ class _RouteTextState extends State<RouteText> {
   @override
   void initState() {
     super.initState();
+    algorithm.assignData();
 
     /// Save information from animalList
     List<bool> tempList = [];

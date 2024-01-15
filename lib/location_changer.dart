@@ -32,6 +32,7 @@ class _LocationChangeState extends State<LocationChange> {
   @override
   void initState() {
     super.initState();
+    algorithm.assignData();
     /// Update local selectedLocation based on current start location
     _selectedLocation = List.filled(algorithm.getAmount(), false);
     _setLocation(start);

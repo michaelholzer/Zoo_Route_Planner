@@ -35,6 +35,7 @@ class _RouteMapState extends State<RouteMap> {
   void initState() {
     super.initState();
 
+    algorithm.assignData();
     /// Save information from animalList
     List<bool> tempList = [];
     tempList.addAll(animalList);

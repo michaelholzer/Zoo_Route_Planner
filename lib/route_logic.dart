@@ -1,7 +1,33 @@
 class DijkstrasAlgorithm {
 
   /// List of names for all items
-  List<String> names = ['A zero', 'B one', 'C two', 'D three', 'E four', 'F five', 'G six', 'H seven', 'I eight'];
+  // test names
+  // List<String> names = ['A zero', 'B one', 'C two', 'D three', 'E four', 'F five', 'G six', 'H seven', 'I eight'];
+  // true names
+  static List<String> names = [
+    'Andean Bear', 'Axolotl',                                         // 'A' count = 2
+    'Bashur Bridge Elevator',                                         // 'B' count = 1
+    'California Condor', 'Cheetah',                                   // 'C' count = 2
+    // D
+    'Elephant', 'Entrance', 'Exit',                                   // 'E' count = 3
+    'Fern Canyon',                                                    // 'F' count = 1
+    'Galapagos Tortoise', 'Giraffe', 'Gorilla',                       // 'G' count = 3
+    'Hamadryas Baboon', 'Harpy Eagle', 'Hummingbird',                 // 'H' count = 3
+    // I J
+    'Kangaroo Stop 1', 'Kangaroo Stop 3', 'Koala', 'Komodo Dragon',   // 'K' count = 4
+    'Lemur', 'Leopard', 'Lion',                                       // 'L' count = 3
+    'Mandrill', 'Map Locator 03', 'Map Locator 04', 'Map Locator 08', 'Map Locator 11',
+    'Map Locator 13', 'Map Locator 15', 'Map Locator 20', 'Merekat',  // 'M' count = 9
+    // N
+    'Orangutan',                                                      // 'O' count = 1
+    'Penguin', 'Polar Bear',                                          // 'P' count = 2
+    // Q
+    'Red Panda',                                                      // 'R' count = 1
+    'Safari Kitchen',                                                 // 'S' count = 1
+    'Tasmanian Devil', 'Tiger',                                       // 'T' count = 2
+    // U V W X Y
+    'Zebra',                                                          // 'Z' count = 1
+  ];
   String getName (int index) {
     if (index == -1) {
       return "Destination Reached";
@@ -14,40 +40,185 @@ class DijkstrasAlgorithm {
     return names.indexOf(name);
   }
 
+  /// Amount of locations in the lists
+  static int amount = names.length;
+  int getAmount () => amount;
+
   /// Coordinate List for all points
-  List<List<double>> coordinates = [
-    [32.736, -117.1516],
-    [32.7363, -117.1513],
-    [32.7363, -117.151],
-    [32.7363, -117.1507],
-    [32.736, -117.1504],
-    [32.7357, -117.1507],
-    [32.7357, -117.151],
-    [32.7357, -117.1513],
-    [32.736, -117.151]
-  ];
+  // test coordinates
+  // List<List<double>> coordinates = [
+  //   [32.736, -117.1516], [32.7363, -117.1513], [32.7363, -117.151],
+  //   [32.7363, -117.1507], [32.736, -117.1504], [32.7357, -117.1507],
+  //   [32.7357, -117.151], [32.7357, -117.1513], [32.736, -117.151]
+  // ];
+  // true coordinate
+  // Generate list of all 0s
+  List<List<double>> coordinates = List<List>.generate(amount, (i) => List<int>.generate(2, (index) => 0, growable: false), growable: false).cast<List<double>>();
+  List<List<int>> adjacencyMatrix = List<List>.generate(amount, (i) => List<int>.generate(amount, (index) => 0, growable: false), growable: false).cast<List<int>>();
+  // Set data with function call so data can be added on later in an easier manner
+  void assignData() {
+    // Coordinate data
+    coordinates[names.indexOf('Andean Bear')] = [32.73625, -117.15013];
+    coordinates[names.indexOf('Axolotl')] = [32.73329, -117.14888];
+    coordinates[names.indexOf('Bashur Bridge Elevator')] = [32.73514, -117.15202];
+    coordinates[names.indexOf('California Condor')] = [32.73912, -117.15161];
+    coordinates[names.indexOf('Cheetah')] = [32.73728, -117.15064];
+    coordinates[names.indexOf('Elephant')] = [32.73747, -117.15346];
+    coordinates[names.indexOf('Entrance')] = [32.73520, -117.14950];
+    coordinates[names.indexOf('Exit')] = [32.73467, -117.14940];
+    coordinates[names.indexOf('Fern Canyon')] = [32.73529, -117.14997];
+    coordinates[names.indexOf('Galapagos Tortoise')] =  [32.73352, -117.15026];
+    coordinates[names.indexOf('Giraffe')] = [32.73686, -117.15043];
+    coordinates[names.indexOf('Gorilla')] = [32.73473, -117.15122];
+    coordinates[names.indexOf('Hamadryas Baboon')] = [32.73865, -117.15008];
+    coordinates[names.indexOf('Harpy Eagle')] = [32.73385, -117.15377];
+    coordinates[names.indexOf('Hummingbird')] = [32.73372, -117.14928];
+    coordinates[names.indexOf('Kangaroo Stop 1')] = [32.73728, -117.15021];
+    coordinates[names.indexOf('Kangaroo Stop 3')] = [32.73538, -117.15339];
+    coordinates[names.indexOf('Koala')] = [32.73766, -117.15014];
+    coordinates[names.indexOf('Komodo Dragon')] = [32.73392, -117.14935];
+    coordinates[names.indexOf('Lemur')] = [32.73749, -117.15170];
+    coordinates[names.indexOf('Leopard')] = [32.73430, -117.15328];
+    coordinates[names.indexOf('Lion')] = [32.73594, -117.15303];
+    coordinates[names.indexOf('Mandrill')] = [32.73506, -117.15070];
+    coordinates[names.indexOf('Map Locator 03')] = [32.73452, -117.14953];
+    coordinates[names.indexOf('Map Locator 04')] = [32.73519, -117.14974];
+    coordinates[names.indexOf('Map Locator 08')] = [32.73752, -117.14944];
+    coordinates[names.indexOf('Map Locator 11')] = [32.73597, -117.15040];
+    coordinates[names.indexOf('Map Locator 13')] = [32.73576, -117.15173];
+    coordinates[names.indexOf('Map Locator 15')] = [32.73404, -117.15336];
+    coordinates[names.indexOf('Map Locator 20')] = [32.73553, -117.15289];
+    coordinates[names.indexOf('Merekat')] = [32.73929, -117.15060];
+    coordinates[names.indexOf('Orangutan')] = [32.73540, -117.15058];
+    coordinates[names.indexOf('Penguin')] = [32.73638, -117.15201];
+    coordinates[names.indexOf('Polar Bear')] = [32.73430, -117.15469];
+    coordinates[names.indexOf('Red Panda')] = [32.73506, -117.15228];
+    coordinates[names.indexOf('Safari Kitchen')] = [32.73481, -117.14973];
+    coordinates[names.indexOf('Tasmanian Devil')] = [32.73753, -117.14911];
+    coordinates[names.indexOf('Tiger')] = [32.73390, -117.15113];
+    coordinates[names.indexOf('Zebra')] = [32.73379, -117.15474];
+
+    // Adjacency Data
+    adjacencyMatrix[names.indexOf('Andean Bear')][names.indexOf('Map Locator 08')] = 105;
+    adjacencyMatrix[names.indexOf('Andean Bear')][names.indexOf('Map Locator 11')] = 103;
+    adjacencyMatrix[names.indexOf('Axolotl')][names.indexOf('Hummingbird')] = 67;
+    adjacencyMatrix[names.indexOf('Bashur Bridge Elevator')][names.indexOf('Gorilla')] = 100;
+    adjacencyMatrix[names.indexOf('Bashur Bridge Elevator')][names.indexOf('Red Panda')] = 40;
+    adjacencyMatrix[names.indexOf('Bashur Bridge Elevator')][names.indexOf('Map Locator 20')] = 90;
+    adjacencyMatrix[names.indexOf('California Condor')][names.indexOf('Merekat')] = 105;
+    adjacencyMatrix[names.indexOf('California Condor')][names.indexOf('Elephant')] = 313;
+    adjacencyMatrix[names.indexOf('Cheetah')][names.indexOf('Giraffe')] = 42;
+    adjacencyMatrix[names.indexOf('Cheetah')][names.indexOf('Kangaroo Stop 1')] = 41;
+    adjacencyMatrix[names.indexOf('Elephant')][names.indexOf('California Condor')] = 313;
+    adjacencyMatrix[names.indexOf('Elephant')][names.indexOf('Lion')] = 187;
+    adjacencyMatrix[names.indexOf('Entrance')][names.indexOf('Tasmanian Devil')] = 281;
+    adjacencyMatrix[names.indexOf('Entrance')][names.indexOf('Map Locator 04')] = 281;
+    adjacencyMatrix[names.indexOf('Exit')][names.indexOf('Safari Kitchen')] = 37;
+    adjacencyMatrix[names.indexOf('Exit')][names.indexOf('Map Locator 03')] = 21;
+    adjacencyMatrix[names.indexOf('Fern Canyon')][names.indexOf('Orangutan')] = 35;
+    adjacencyMatrix[names.indexOf('Fern Canyon')][names.indexOf('Map Locator 11')] = 85;
+    adjacencyMatrix[names.indexOf('Fern Canyon')][names.indexOf('Map Locator 04')] = 40;
+    adjacencyMatrix[names.indexOf('Galapagos Tortoise')][names.indexOf('Map Locator 03')] = 121;
+    adjacencyMatrix[names.indexOf('Galapagos Tortoise')][names.indexOf('Komodo Dragon')] = 101;
+    adjacencyMatrix[names.indexOf('Giraffe')][names.indexOf('Cheetah')] = 42;
+    adjacencyMatrix[names.indexOf('Giraffe')][names.indexOf('Kangaroo Stop 1')] = 47;
+    adjacencyMatrix[names.indexOf('Gorilla')][names.indexOf('Orangutan')] = 140;
+    adjacencyMatrix[names.indexOf('Gorilla')][names.indexOf('Bashur Bridge Elevator')] = 100;
+    adjacencyMatrix[names.indexOf('Gorilla')][names.indexOf('Mandrill')] = 117;
+    adjacencyMatrix[names.indexOf('Hamadryas Baboon')][names.indexOf('Lemur')] = 276;
+    adjacencyMatrix[names.indexOf('Hamadryas Baboon')][names.indexOf('Merekat')] = 153;
+    adjacencyMatrix[names.indexOf('Hamadryas Baboon')][names.indexOf('Koala')] = 121;
+    adjacencyMatrix[names.indexOf('Harpy Eagle')][names.indexOf('Zebra')] = 91;
+    adjacencyMatrix[names.indexOf('Harpy Eagle')][names.indexOf('Map Locator 15')] = 48;
+    adjacencyMatrix[names.indexOf('Hummingbird')][names.indexOf('Axolotl')] = 67;
+    adjacencyMatrix[names.indexOf('Hummingbird')][names.indexOf('Komodo Dragon')] = 23;
+    adjacencyMatrix[names.indexOf('Kangaroo Stop 1')][names.indexOf('Cheetah')] = 41;
+    adjacencyMatrix[names.indexOf('Kangaroo Stop 1')][names.indexOf('Giraffe')] = 47;
+    adjacencyMatrix[names.indexOf('Kangaroo Stop 1')][names.indexOf('Koala')] = 58;
+    adjacencyMatrix[names.indexOf('Kangaroo Stop 3')][names.indexOf('Polar Bear')] = 207;
+    adjacencyMatrix[names.indexOf('Kangaroo Stop 3')][names.indexOf('Map Locator 20')] = 40;
+    adjacencyMatrix[names.indexOf('Koala')][names.indexOf('Hamadryas Baboon')] = 121;
+    adjacencyMatrix[names.indexOf('Koala')][names.indexOf('Kangaroo Stop 1')] = 58;
+    adjacencyMatrix[names.indexOf('Koala')][names.indexOf('Map Locator 08')] = 93;
+    adjacencyMatrix[names.indexOf('Komodo Dragon')][names.indexOf('Galapagos Tortoise')] = 101;
+    adjacencyMatrix[names.indexOf('Komodo Dragon')][names.indexOf('Hummingbird')] = 23;
+    adjacencyMatrix[names.indexOf('Komodo Dragon')][names.indexOf('Map Locator 03')] = 70;
+    adjacencyMatrix[names.indexOf('Lemur')][names.indexOf('Hamadryas Baboon')] = 276;
+    adjacencyMatrix[names.indexOf('Lemur')][names.indexOf('Penguin')] = 194;
+    adjacencyMatrix[names.indexOf('Leopard')][names.indexOf('Map Locator 15')] = 46;
+    adjacencyMatrix[names.indexOf('Leopard')][names.indexOf('Red Panda')] = 50;
+    adjacencyMatrix[names.indexOf('Lion')][names.indexOf('Elephant')] = 187;
+    adjacencyMatrix[names.indexOf('Lion')][names.indexOf('Map Locator 20')] = 50;
+    adjacencyMatrix[names.indexOf('Mandrill')][names.indexOf('Gorilla')] = 117;
+    adjacencyMatrix[names.indexOf('Mandrill')][names.indexOf('Tiger')] = 217;
+    adjacencyMatrix[names.indexOf('Mandrill')][names.indexOf('Orangutan')] = 117;
+    adjacencyMatrix[names.indexOf('Mandrill')][names.indexOf('Safari Kitchen')] = 132;
+    adjacencyMatrix[names.indexOf('Map Locator 03')][names.indexOf('Galapagos Tortoise')] = 121;
+    adjacencyMatrix[names.indexOf('Map Locator 03')][names.indexOf('Komodo Dragon')] = 70;
+    adjacencyMatrix[names.indexOf('Map Locator 03')][names.indexOf('Exit')] = 21;
+    adjacencyMatrix[names.indexOf('Map Locator 04')][names.indexOf('Safari Kitchen')] = 40;
+    adjacencyMatrix[names.indexOf('Map Locator 04')][names.indexOf('Fern Canyon')] = 30;
+    adjacencyMatrix[names.indexOf('Map Locator 04')][names.indexOf('Entrance')] = 19;
+    adjacencyMatrix[names.indexOf('Map Locator 08')][names.indexOf('Andean Bear')] = 105;
+    adjacencyMatrix[names.indexOf('Map Locator 08')][names.indexOf('Koala')] = 93;
+    adjacencyMatrix[names.indexOf('Map Locator 08')][names.indexOf('Tasmanian Devil')] = 28;
+    adjacencyMatrix[names.indexOf('Map Locator 11')][names.indexOf('Andean Bear')] = 103;
+    adjacencyMatrix[names.indexOf('Map Locator 11')][names.indexOf('Fern Canyon')] = 85;
+    adjacencyMatrix[names.indexOf('Map Locator 11')][names.indexOf('Map Locator 13')] = 121;
+    adjacencyMatrix[names.indexOf('Map Locator 13')][names.indexOf('Map Locator 11')] = 121;
+    adjacencyMatrix[names.indexOf('Map Locator 13')][names.indexOf('Penguin')] = 87;
+    adjacencyMatrix[names.indexOf('Map Locator 13')][names.indexOf('Red Panda')] = 87;
+    adjacencyMatrix[names.indexOf('Map Locator 15')][names.indexOf('Harpy Eagle')] = 48;
+    adjacencyMatrix[names.indexOf('Map Locator 15')][names.indexOf('Leopard')] = 46;
+    adjacencyMatrix[names.indexOf('Map Locator 15')][names.indexOf('Tiger')] = 168;
+    adjacencyMatrix[names.indexOf('Map Locator 20')][names.indexOf('Lion')] = 45;
+    adjacencyMatrix[names.indexOf('Map Locator 20')][names.indexOf('Bashur Bridge Elevator')] = 90;
+    adjacencyMatrix[names.indexOf('Map Locator 20')][names.indexOf('Kangaroo Stop 3')] = 40;
+    adjacencyMatrix[names.indexOf('Merekat')][names.indexOf('Hamadryas Baboon')] = 153;
+    adjacencyMatrix[names.indexOf('Merekat')][names.indexOf('California Condor')] = 105;
+    adjacencyMatrix[names.indexOf('Orangutan')][names.indexOf('Fern Canyon')] = 35;
+    adjacencyMatrix[names.indexOf('Orangutan')][names.indexOf('Mandrill')] = 117;
+    adjacencyMatrix[names.indexOf('Orangutan')][names.indexOf('Gorilla')] = 140;
+    adjacencyMatrix[names.indexOf('Penguin')][names.indexOf('Lemur')] = 194;
+    adjacencyMatrix[names.indexOf('Penguin')][names.indexOf('Map Locator 13')] = 87;
+    adjacencyMatrix[names.indexOf('Polar Bear')][names.indexOf('Zebra')] = 71;
+    adjacencyMatrix[names.indexOf('Polar Bear')][names.indexOf('Kangaroo Stop 3')] = 207;
+    adjacencyMatrix[names.indexOf('Red Panda')][names.indexOf('Leopard')] = 50;
+    adjacencyMatrix[names.indexOf('Red Panda')][names.indexOf('Bashur Bridge Elevator')] = 40;
+    adjacencyMatrix[names.indexOf('Red Panda')][names.indexOf('Map Locator 13')] = 40;
+    adjacencyMatrix[names.indexOf('Safari Kitchen')][names.indexOf('Exit')] = 37;
+    adjacencyMatrix[names.indexOf('Safari Kitchen')][names.indexOf('Map Locator 04')] = 40;
+    adjacencyMatrix[names.indexOf('Safari Kitchen')][names.indexOf('Mandrill')] = 132;
+    adjacencyMatrix[names.indexOf('Tasmanian Devil')][names.indexOf('Entrance')] = 281;
+    adjacencyMatrix[names.indexOf('Tasmanian Devil')][names.indexOf('Map Locator 08')] = 28;
+    adjacencyMatrix[names.indexOf('Tiger')][names.indexOf('Map Locator 15')] = 28;
+    adjacencyMatrix[names.indexOf('Tiger')][names.indexOf('Mandrill')] = 217;
+    adjacencyMatrix[names.indexOf('Zebra')][names.indexOf('Polar Bear')] = 71;
+    adjacencyMatrix[names.indexOf('Zebra')][names.indexOf('Harpy Eagle')] = 91;
+  }
+
   double getXCoordinate (int index) => coordinates[index][0];
   double getYCoordinate (int index) => coordinates[index][1];
 
   /// Matrix of distances between nodes for algorithm
-  static List<List<int>> adjacencyMatrix = [
-    [  0,  4,  0,  0,  0,  0,  0,  8,  0 ],
-    [  4,  0,  8,  0,  0,  0,  0, 11,  0 ],
-    [  0,  8,  0,  7,  0,  4,  0,  0,  2 ],
-    [  0,  0,  7,  0,  9, 14,  0,  0,  0 ],
-    [  0,  0,  0,  9,  0, 10,  0,  0,  0 ],
-    [  0,  0,  4, 14, 10,  0,  2,  0,  0 ],
-    [  0,  0,  0,  0,  0,  2,  0,  1,  6 ],
-    [  8, 11,  0,  0,  0,  0,  1,  0,  7 ],
-    [  0,  0,  2,  0,  0,  0,  6,  7,  0 ]
-  ];
+  // test adjacency matrix
+  // static List<List<int>> adjacencyMatrix = [
+  //   [  0,  4,  0,  0,  0,  0,  0,  8,  0 ],
+  //   [  4,  0,  8,  0,  0,  0,  0, 11,  0 ],
+  //   [  0,  8,  0,  7,  0,  4,  0,  0,  2 ],
+  //   [  0,  0,  7,  0,  9, 14,  0,  0,  0 ],
+  //   [  0,  0,  0,  9,  0, 10,  0,  0,  0 ],
+  //   [  0,  0,  4, 14, 10,  0,  2,  0,  0 ],
+  //   [  0,  0,  0,  0,  0,  2,  0,  1,  6 ],
+  //   [  8, 11,  0,  0,  0,  0,  1,  0,  7 ],
+  //   [  0,  0,  2,  0,  0,  0,  6,  7,  0 ]
+  // ];
+  // true adjacency matrix
+  // Create empty list of all 0s
+  // Assign connections and weights
 
   /// Return true if there is a connection between two locations
   bool pointsConnect (int one, int two) => (adjacencyMatrix[one][two] > 0);
-
-  /// Amount of locations in the matrix
-  static int amount = adjacencyMatrix.length;
-  int getAmount () => amount;
 
   /// Starting location
   int start = 0;
