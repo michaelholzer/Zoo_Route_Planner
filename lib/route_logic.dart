@@ -207,7 +207,7 @@ class DijkstrasAlgorithm {
     directionMatrix[names.indexOf('California Condor')][names.indexOf('Elephant')]
       = 'Walk away from the road and follow the path.';
     directionMatrix[names.indexOf('Cheetah')][names.indexOf('Giraffe')]
-      = 'Walk around the center island.';
+      = 'Walk to the opposite side of the center island.';
     directionMatrix[names.indexOf('Cheetah')][names.indexOf('Kangaroo Stop 1')]
       = 'Walk towards the center island with the Kangaroo bus sign.';
     directionMatrix[names.indexOf('Elephant')][names.indexOf('California Condor')]
@@ -218,88 +218,170 @@ class DijkstrasAlgorithm {
       = 'Turn with the entrance on the right and road on the left. Follow the winding path shadowed by trees.';
     directionMatrix[names.indexOf('Entrance')][names.indexOf('Map Locator 04')]
       = 'Cross the road to the circular sign on a signpost.';
-    directionMatrix[names.indexOf('Exit')][names.indexOf('Safari Kitchen')] = '37';
-    directionMatrix[names.indexOf('Exit')][names.indexOf('Map Locator 03')] = '21';
-    directionMatrix[names.indexOf('Fern Canyon')][names.indexOf('Orangutan')] = '35';
-    directionMatrix[names.indexOf('Fern Canyon')][names.indexOf('Map Locator 11')] = '85';
-    directionMatrix[names.indexOf('Fern Canyon')][names.indexOf('Map Locator 04')] = '40';
-    directionMatrix[names.indexOf('Galapagos Tortoise')][names.indexOf('Map Locator 03')] = '121';
-    directionMatrix[names.indexOf('Galapagos Tortoise')][names.indexOf('Komodo Dragon')] = '101';
-    directionMatrix[names.indexOf('Giraffe')][names.indexOf('Cheetah')] = '42';
-    directionMatrix[names.indexOf('Giraffe')][names.indexOf('Kangaroo Stop 1')] = '47';
-    directionMatrix[names.indexOf('Gorilla')][names.indexOf('Orangutan')] = '140';
-    directionMatrix[names.indexOf('Gorilla')][names.indexOf('Bashur Bridge Elevator')] = '100';
-    directionMatrix[names.indexOf('Gorilla')][names.indexOf('Mandrill')] = '117';
-    directionMatrix[names.indexOf('Hamadryas Baboon')][names.indexOf('Lemur')] = '276';
-    directionMatrix[names.indexOf('Hamadryas Baboon')][names.indexOf('Merekat')] = '153';
-    directionMatrix[names.indexOf('Hamadryas Baboon')][names.indexOf('Koala')] = '121';
-    directionMatrix[names.indexOf('Harpy Eagle')][names.indexOf('Zebra')] = '91';
-    directionMatrix[names.indexOf('Harpy Eagle')][names.indexOf('Map Locator 15')] = '48';
-    directionMatrix[names.indexOf('Hummingbird')][names.indexOf('Axolotl')] = '67';
-    directionMatrix[names.indexOf('Hummingbird')][names.indexOf('Komodo Dragon')] = '23';
-    directionMatrix[names.indexOf('Kangaroo Stop 1')][names.indexOf('Cheetah')] = '41';
-    directionMatrix[names.indexOf('Kangaroo Stop 1')][names.indexOf('Giraffe')] = '47';
-    directionMatrix[names.indexOf('Kangaroo Stop 1')][names.indexOf('Koala')] = '58';
-    directionMatrix[names.indexOf('Kangaroo Stop 3')][names.indexOf('Polar Bear')] = '207';
-    directionMatrix[names.indexOf('Kangaroo Stop 3')][names.indexOf('Map Locator 20')] = '40';
-    directionMatrix[names.indexOf('Koala')][names.indexOf('Hamadryas Baboon')] = '121';
-    directionMatrix[names.indexOf('Koala')][names.indexOf('Kangaroo Stop 1')] = '58';
-    directionMatrix[names.indexOf('Koala')][names.indexOf('Map Locator 08')] = '93';
-    directionMatrix[names.indexOf('Komodo Dragon')][names.indexOf('Galapagos Tortoise')] = '101';
-    directionMatrix[names.indexOf('Komodo Dragon')][names.indexOf('Hummingbird')] = '23';
-    directionMatrix[names.indexOf('Komodo Dragon')][names.indexOf('Map Locator 03')] = '70';
-    directionMatrix[names.indexOf('Lemur')][names.indexOf('Hamadryas Baboon')] = '276';
-    directionMatrix[names.indexOf('Lemur')][names.indexOf('Penguin')] = '194';
-    directionMatrix[names.indexOf('Leopard')][names.indexOf('Map Locator 15')] = '46';
-    directionMatrix[names.indexOf('Leopard')][names.indexOf('Red Panda')] = '50';
-    directionMatrix[names.indexOf('Lion')][names.indexOf('Elephant')] = '187';
-    directionMatrix[names.indexOf('Lion')][names.indexOf('Map Locator 20')] = '50';
-    directionMatrix[names.indexOf('Mandrill')][names.indexOf('Gorilla')] = '117';
-    directionMatrix[names.indexOf('Mandrill')][names.indexOf('Tiger')] = '217';
-    directionMatrix[names.indexOf('Mandrill')][names.indexOf('Orangutan')] = '117';
-    directionMatrix[names.indexOf('Mandrill')][names.indexOf('Safari Kitchen')] = '132';
-    directionMatrix[names.indexOf('Map Locator 03')][names.indexOf('Galapagos Tortoise')] = '121';
-    directionMatrix[names.indexOf('Map Locator 03')][names.indexOf('Komodo Dragon')] = '70';
-    directionMatrix[names.indexOf('Map Locator 03')][names.indexOf('Exit')] = '21';
-    directionMatrix[names.indexOf('Map Locator 04')][names.indexOf('Safari Kitchen')] = '40';
-    directionMatrix[names.indexOf('Map Locator 04')][names.indexOf('Fern Canyon')] = '30';
-    directionMatrix[names.indexOf('Map Locator 04')][names.indexOf('Entrance')] = '19';
-    directionMatrix[names.indexOf('Map Locator 08')][names.indexOf('Andean Bear')] = '166';
-    directionMatrix[names.indexOf('Map Locator 08')][names.indexOf('Koala')] = '93';
-    directionMatrix[names.indexOf('Map Locator 08')][names.indexOf('Tasmanian Devil')] = '28';
-    directionMatrix[names.indexOf('Map Locator 11')][names.indexOf('Andean Bear')] = '43';
-    directionMatrix[names.indexOf('Map Locator 11')][names.indexOf('Fern Canyon')] = '85';
-    directionMatrix[names.indexOf('Map Locator 11')][names.indexOf('Map Locator 13')] = '121';
-    directionMatrix[names.indexOf('Map Locator 13')][names.indexOf('Map Locator 11')] = '121';
-    directionMatrix[names.indexOf('Map Locator 13')][names.indexOf('Penguin')] = '87';
-    directionMatrix[names.indexOf('Map Locator 13')][names.indexOf('Red Panda')] = '87';
-    directionMatrix[names.indexOf('Map Locator 15')][names.indexOf('Harpy Eagle')] = '48';
-    directionMatrix[names.indexOf('Map Locator 15')][names.indexOf('Leopard')] = '46';
-    directionMatrix[names.indexOf('Map Locator 15')][names.indexOf('Tiger')] = '168';
-    directionMatrix[names.indexOf('Map Locator 20')][names.indexOf('Lion')] = '45';
-    directionMatrix[names.indexOf('Map Locator 20')][names.indexOf('Bashur Bridge Elevator')] = '90';
-    directionMatrix[names.indexOf('Map Locator 20')][names.indexOf('Kangaroo Stop 3')] = '40';
-    directionMatrix[names.indexOf('Merekat')][names.indexOf('Hamadryas Baboon')] = '153';
-    directionMatrix[names.indexOf('Merekat')][names.indexOf('California Condor')] = '105';
-    directionMatrix[names.indexOf('Orangutan')][names.indexOf('Fern Canyon')] = '35';
-    directionMatrix[names.indexOf('Orangutan')][names.indexOf('Mandrill')] = '117';
-    directionMatrix[names.indexOf('Orangutan')][names.indexOf('Gorilla')] = '140';
-    directionMatrix[names.indexOf('Penguin')][names.indexOf('Lemur')] = '194';
-    directionMatrix[names.indexOf('Penguin')][names.indexOf('Map Locator 13')] = '87';
-    directionMatrix[names.indexOf('Polar Bear')][names.indexOf('Zebra')] = '71';
-    directionMatrix[names.indexOf('Polar Bear')][names.indexOf('Kangaroo Stop 3')] = '207';
-    directionMatrix[names.indexOf('Red Panda')][names.indexOf('Leopard')] = '50';
-    directionMatrix[names.indexOf('Red Panda')][names.indexOf('Bashur Bridge Elevator')] = '40';
-    directionMatrix[names.indexOf('Red Panda')][names.indexOf('Map Locator 13')] = '40';
-    directionMatrix[names.indexOf('Safari Kitchen')][names.indexOf('Exit')] = '37';
-    directionMatrix[names.indexOf('Safari Kitchen')][names.indexOf('Map Locator 04')] = '40';
-    directionMatrix[names.indexOf('Safari Kitchen')][names.indexOf('Mandrill')] = '132';
-    directionMatrix[names.indexOf('Tasmanian Devil')][names.indexOf('Entrance')] = '281';
-    directionMatrix[names.indexOf('Tasmanian Devil')][names.indexOf('Map Locator 08')] = '28';
-    directionMatrix[names.indexOf('Tiger')][names.indexOf('Map Locator 15')] = '28';
-    directionMatrix[names.indexOf('Tiger')][names.indexOf('Mandrill')] = '217';
-    directionMatrix[names.indexOf('Zebra')][names.indexOf('Polar Bear')] = '71';
-    directionMatrix[names.indexOf('Zebra')][names.indexOf('Harpy Eagle')] = '91';
+    directionMatrix[names.indexOf('Exit')][names.indexOf('Safari Kitchen')]
+      = 'Facing the exit (the direction of the macaw), turn left and follow the path.';
+    directionMatrix[names.indexOf('Exit')][names.indexOf('Map Locator 03')]
+      = 'Facing the exit (the direction of the macaw), turn right to the red sign on a post.';
+    directionMatrix[names.indexOf('Fern Canyon')][names.indexOf('Orangutan')]
+      = 'From the top of Fern Canyon, turn right and follow the path on the right.';
+    directionMatrix[names.indexOf('Fern Canyon')][names.indexOf('Map Locator 11')]
+      = 'Walk down Fern Canyon.';
+    directionMatrix[names.indexOf('Fern Canyon')][names.indexOf('Map Locator 04')]
+      = 'From the top of Fern Canyon, turn left and follow the path.';
+    directionMatrix[names.indexOf('Galapagos Tortoise')][names.indexOf('Map Locator 03')]
+      = 'Leave Reptile Mesa and go left around the Reptile House.';
+    directionMatrix[names.indexOf('Galapagos Tortoise')][names.indexOf('Komodo Dragon')]
+      = 'Leave Reptile Mesa and go right around the Reptile House.';
+    directionMatrix[names.indexOf('Giraffe')][names.indexOf('Cheetah')]
+      = 'Walk to the opposite side of the center island.';
+    directionMatrix[names.indexOf('Giraffe')][names.indexOf('Kangaroo Stop 1')]
+      = 'Walk towards the center island with the Kangaroo bus sign.';
+    directionMatrix[names.indexOf('Gorilla')][names.indexOf('Orangutan')]
+      = 'Facing the gorillas, turn right and follow the left path.';
+    directionMatrix[names.indexOf('Gorilla')][names.indexOf('Bashur Bridge Elevator')]
+      = 'Facing the gorillas, turn left and head towards the bridge.';
+    directionMatrix[names.indexOf('Gorilla')][names.indexOf('Mandrill')]
+      = 'Facing the gorillas, turn right and follow the right path.';
+    directionMatrix[names.indexOf('Hamadryas Baboon')][names.indexOf('Lemur')]
+      = 'Follow the downhill path.';
+    directionMatrix[names.indexOf('Hamadryas Baboon')][names.indexOf('Merekat')]
+      = 'After walking uphill, take the left path.';
+    directionMatrix[names.indexOf('Hamadryas Baboon')][names.indexOf('Koala')]
+      = 'After walking uphill, take the right path.';
+    directionMatrix[names.indexOf('Harpy Eagle')][names.indexOf('Zebra')]
+      = 'Follow the uphill path with the road on your left.';
+    directionMatrix[names.indexOf('Harpy Eagle')][names.indexOf('Map Locator 15')]
+      = 'Follow the path with the road on your right.';
+    directionMatrix[names.indexOf('Hummingbird')][names.indexOf('Axolotl')]
+      = 'Walk into Wildlife Explorer\'s Basecamp and enter Cool Critters.';
+    directionMatrix[names.indexOf('Hummingbird')][names.indexOf('Komodo Dragon')]
+      = 'Walk to Komodo Kingdom.';
+    directionMatrix[names.indexOf('Kangaroo Stop 1')][names.indexOf('Cheetah')]
+      = 'Turn slightly right and walk forward.';
+    directionMatrix[names.indexOf('Kangaroo Stop 1')][names.indexOf('Giraffe')]
+      = 'Turn slightly left and walk forward.';
+    directionMatrix[names.indexOf('Kangaroo Stop 1')][names.indexOf('Koala')]
+      = 'Turn and walk towards the large building with a red roof.';
+    directionMatrix[names.indexOf('Kangaroo Stop 3')][names.indexOf('Polar Bear')]
+      = 'Walk towards the Skifari and continue down the hill.';
+    directionMatrix[names.indexOf('Kangaroo Stop 3')][names.indexOf('Map Locator 20')]
+      = 'Walk away from the Skifari and follow the pedestrian path on the right.';
+    directionMatrix[names.indexOf('Koala')][names.indexOf('Hamadryas Baboon')]
+      = 'Walk towards the Desert Garden and follow the pedestrian path.';
+    directionMatrix[names.indexOf('Koala')][names.indexOf('Kangaroo Stop 1')]
+      = 'Walk towards Urban Jungle.';
+    directionMatrix[names.indexOf('Koala')][names.indexOf('Map Locator 08')]
+      = 'Walking past the male Koalas, turn left and then right to the red sign on a post.';
+    directionMatrix[names.indexOf('Komodo Dragon')][names.indexOf('Galapagos Tortoise')]
+      = 'Turn right out of Komodo Kingdom and walk towards Reptile Mesa.';
+    directionMatrix[names.indexOf('Komodo Dragon')][names.indexOf('Hummingbird')]
+      = 'Walk to the Hummingbird Aviary.';
+    directionMatrix[names.indexOf('Komodo Dragon')][names.indexOf('Map Locator 03')]
+      = 'Exit Komodo Kingdom and walk to the opposite side of the Reptile House.';
+    directionMatrix[names.indexOf('Lemur')][names.indexOf('Hamadryas Baboon')]
+      = 'Follow the path up the hill.';
+    directionMatrix[names.indexOf('Lemur')][names.indexOf('Penguin')]
+      = 'Follow the path down the hill.';
+    directionMatrix[names.indexOf('Leopard')][names.indexOf('Map Locator 15')]
+      = 'Exit out the the \'Entrance\' of Asian Cats.';
+    directionMatrix[names.indexOf('Leopard')][names.indexOf('Red Panda')]
+      = 'Walk to the exit of Asian Cats and follow the pedestrian path.';
+    directionMatrix[names.indexOf('Lion')][names.indexOf('Elephant')]
+      = 'Facing the Lions, turn right and follow the pedestrian path.';
+    directionMatrix[names.indexOf('Lion')][names.indexOf('Map Locator 20')]
+      = 'Facing the Lions, turn left and follow the pedestrian path.';
+    directionMatrix[names.indexOf('Mandrill')][names.indexOf('Gorilla')]
+      = 'From the upstairs path, face the Mandrills and turn left. Follow the path.';
+    directionMatrix[names.indexOf('Mandrill')][names.indexOf('Tiger')]
+      = 'From the downstairs path, face the Mandrills and turn left. Follow the fork to the right and walk downhill.';
+    directionMatrix[names.indexOf('Mandrill')][names.indexOf('Orangutan')]
+      = 'From the downstairs path, face the Mandrills and turn right. Follow the fork to the left and follow the path.';
+    directionMatrix[names.indexOf('Mandrill')][names.indexOf('Safari Kitchen')]
+      = 'From the upstairs path, face the Mandrills and turn right. Follow the path.';
+    directionMatrix[names.indexOf('Map Locator 03')][names.indexOf('Galapagos Tortoise')]
+      = 'Pass by the Reptile House and enter Reptile Mesa.';
+    directionMatrix[names.indexOf('Map Locator 03')][names.indexOf('Komodo Dragon')]
+      = 'Walk to the opposite side of the Reptile House to enter Komodo Kingdom.';
+    directionMatrix[names.indexOf('Map Locator 03')][names.indexOf('Exit')]
+      = 'Walk away from the Reptile House and find the Exit sign with a macaw on top.';
+    directionMatrix[names.indexOf('Map Locator 04')][names.indexOf('Safari Kitchen')]
+      = 'Walk clockwise around the flamingo pond.';
+    directionMatrix[names.indexOf('Map Locator 04')][names.indexOf('Fern Canyon')]
+      = 'Walk counterclockwise around the flamingo pond and down Treetops Way.';
+    directionMatrix[names.indexOf('Map Locator 04')][names.indexOf('Entrance')]
+      = 'Turn away from the flamingo pond and cross the street.';
+    directionMatrix[names.indexOf('Map Locator 08')][names.indexOf('Andean Bear')]
+      = 'Walk down the steep hill.';
+    directionMatrix[names.indexOf('Map Locator 08')][names.indexOf('Koala')]
+      = 'Walk towards the large building with the red roof.';
+    directionMatrix[names.indexOf('Map Locator 08')][names.indexOf('Tasmanian Devil')]
+      = 'Walk to the left of the bus road past the map of Australia.';
+    directionMatrix[names.indexOf('Map Locator 11')][names.indexOf('Andean Bear')]
+      = 'Walk uphill following the path and road.';
+    directionMatrix[names.indexOf('Map Locator 11')][names.indexOf('Fern Canyon')]
+      = 'Cross the road and walk up the stairs and path.';
+    directionMatrix[names.indexOf('Map Locator 11')][names.indexOf('Map Locator 13')]
+      = 'Walk down the hill following the pedestrian path or the road.';
+    directionMatrix[names.indexOf('Map Locator 13')][names.indexOf('Map Locator 11')]
+      = 'Walk up the hill following the road or \'Sun Bear Trail\'.';
+    directionMatrix[names.indexOf('Map Locator 13')][names.indexOf('Penguin')]
+      = 'Follow the pedestrian path to \'Africa Rocks\'.';
+    directionMatrix[names.indexOf('Map Locator 13')][names.indexOf('Red Panda')]
+      = 'Walk towards the Panda Conservation building.';
+    directionMatrix[names.indexOf('Map Locator 15')][names.indexOf('Harpy Eagle')]
+      = 'Walk past the sand hippopotamus statue and follow \'Eagle Trail\'.';
+    directionMatrix[names.indexOf('Map Locator 15')][names.indexOf('Leopard')]
+      = 'Enter \'Asian Cats\'.';
+    directionMatrix[names.indexOf('Map Locator 15')][names.indexOf('Tiger')]
+      = 'Turn across from the sand hippopotamus statue and enter \'Tiger Trail\'.';
+    directionMatrix[names.indexOf('Map Locator 20')][names.indexOf('Lion')]
+      = 'Facing away from the bridge, turn right and follow the path.';
+    directionMatrix[names.indexOf('Map Locator 20')][names.indexOf('Bashur Bridge Elevator')]
+      = 'Walk across the bridge.';
+    directionMatrix[names.indexOf('Map Locator 20')][names.indexOf('Kangaroo Stop 3')]
+      = 'Facing away from the bridge, turn left and follow the path.';
+    directionMatrix[names.indexOf('Merekat')][names.indexOf('Hamadryas Baboon')]
+      = 'With the bus road to your left, follow the pedestrian path.';
+    directionMatrix[names.indexOf('Merekat')][names.indexOf('California Condor')]
+      = 'With the bus road to your right, follow the pedestrian path.';
+    directionMatrix[names.indexOf('Orangutan')][names.indexOf('Fern Canyon')]
+      = 'Facing the orangutans, turn right and follow the path to the left.';
+    directionMatrix[names.indexOf('Orangutan')][names.indexOf('Mandrill')]
+      = 'Facing the orangutans, turn right and follow the path to the right.';
+    directionMatrix[names.indexOf('Orangutan')][names.indexOf('Gorilla')]
+      = 'Facing the orangutans, turn left and follow the path.';
+    directionMatrix[names.indexOf('Penguin')][names.indexOf('Lemur')]
+      = 'Turn right from the penguins and follow the path uphill.';
+    directionMatrix[names.indexOf('Penguin')][names.indexOf('Map Locator 13')]
+      = 'Turn left from the penguins and follow the path.';
+    directionMatrix[names.indexOf('Polar Bear')][names.indexOf('Zebra')]
+      = 'Walk down the hill.';
+    directionMatrix[names.indexOf('Polar Bear')][names.indexOf('Kangaroo Stop 3')]
+      = 'Walk up the hill.';
+    directionMatrix[names.indexOf('Red Panda')][names.indexOf('Leopard')]
+      = 'Enter the \'Exit\' of Asian Cats.';
+    directionMatrix[names.indexOf('Red Panda')][names.indexOf('Bashur Bridge Elevator')]
+      = 'Turn around and walk to the large elevator.';
+    directionMatrix[names.indexOf('Red Panda')][names.indexOf('Map Locator 13')]
+      = 'Exit Panda Passage and walk towards Hua Mei Cafe.';
+    directionMatrix[names.indexOf('Safari Kitchen')][names.indexOf('Exit')]
+      = 'Facing the food stall, turn left, cross the bus road, and walk towards the exit sign with a macaw on top.';
+    directionMatrix[names.indexOf('Safari Kitchen')][names.indexOf('Map Locator 04')]
+      = 'Walk counter clockwise around the flamingo pond to the post with a red sign on top.';
+    directionMatrix[names.indexOf('Safari Kitchen')][names.indexOf('Mandrill')]
+      = 'Facing away from the food stall, follow the path to the left down \'Monkey Trails\'.';
+    directionMatrix[names.indexOf('Tasmanian Devil')][names.indexOf('Entrance')]
+      = 'Facing the Tasmanian Devils, turn right and follow the winding path.';
+    directionMatrix[names.indexOf('Tasmanian Devil')][names.indexOf('Map Locator 08')]
+      = 'Facing the Tasmanian Devils, turn left and cross the bus road.';
+    directionMatrix[names.indexOf('Tiger')][names.indexOf('Map Locator 15')]
+      = 'Walk down the hill.';
+    directionMatrix[names.indexOf('Tiger')][names.indexOf('Mandrill')]
+      = 'Walk up the hill.';
+    directionMatrix[names.indexOf('Zebra')][names.indexOf('Polar Bear')]
+      = 'Walk up the hill.';
+    directionMatrix[names.indexOf('Zebra')][names.indexOf('Harpy Eagle')]
+      = 'Walk down the hill.';
 
     /// Set non-animal locations as false
     animal[names.indexOf('Bashur Bridge Elevator')] = false;
