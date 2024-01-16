@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<bool> animalSelected = [];
   List selectedAnimals = [];
-  List<String> _allNames = [];
+  final List<String> _allNames = [];
   List<String> _searchResults = [];
 
   final DijkstrasAlgorithm algorithm = DijkstrasAlgorithm();

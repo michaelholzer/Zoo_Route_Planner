@@ -180,20 +180,23 @@ class _RouteTextState extends State<RouteText> {
                           return ListTile(
                             textColor: Colors.black,
                             minVerticalPadding: 2,
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                             dense: true,
                             title: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 5),
                               decoration: BoxDecoration(
                                 border: Border.all(width: 1, color: Colors.blueGrey),
                                 borderRadius: const BorderRadius.all(Radius.circular(2)),
                               ),
                               child: Text(
-                                '${algorithm.getName(order[index])}\nsecond line\nthird line',
+                                '${algorithm.getName(order[index])}:\n'
+                                  '${(order[index+1] == -1) ? algorithm.getDirection(-2, -2) : algorithm.getDirection(order[index], order[index + 1])}',
                                 style: const TextStyle(fontSize: 20,),
                               )
                             ),
                           );
                         },
-                        childCount: order.length,
+                        childCount: order.length - 1,
                       )
                     )
                   ],
