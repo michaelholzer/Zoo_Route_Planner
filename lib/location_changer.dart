@@ -42,6 +42,7 @@ class _LocationChangeState extends State<LocationChange> {
     newStart = start;
   }
 
+  /// For user viewing, adjust what location is selected
   void _setLocation(int index) {
     setState((){});
     /// Set index true and set all others false
@@ -52,6 +53,7 @@ class _LocationChangeState extends State<LocationChange> {
     newStart = index;
   }
 
+  /// Set the selected location to the current location for all pages
   void _confirmLocation() {
     setState((){});
     /// Navigate back to text or map, wherever user came from
@@ -69,15 +71,18 @@ class _LocationChangeState extends State<LocationChange> {
     }
   }
 
+  /// Update locations shown based on what is typed in the text field
   void _searchChanged(String search) {
     setState(() {});
     _searchResults = _allNames.where((element) => element.toLowerCase().contains(search.toLowerCase())).toList();
   }
 
+  /// Return value adjusted based on index for searched locations
   bool _trueSelected (int index) {
     return _selectedLocation[algorithm.returnIndex(_searchResults[index])];
   }
 
+  /// Adjust index used due to searching
   int _trueIndex (int index) {
     return algorithm.returnIndex(_searchResults[index]);
   }

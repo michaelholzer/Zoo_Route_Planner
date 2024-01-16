@@ -35,6 +35,7 @@ class _RouteMapState extends State<RouteMap> {
   void initState() {
     super.initState();
 
+    /// Initialize data
     algorithm.assignData();
     /// Save information from animalList
     List<bool> tempList = [];
@@ -86,8 +87,8 @@ class _RouteMapState extends State<RouteMap> {
       );
     }
 
-    List<int> trueOrder = [];
     /// Add lines for route and add details to order
+    List<int> trueOrder = [];
     for (int i = 0; i < order.length - 2; i++) {
       routeLines.add(
         Polyline(
@@ -116,6 +117,7 @@ class _RouteMapState extends State<RouteMap> {
     order.add(-1); /// -1 signifies end of route
   }
 
+  /// Navigate to the plan page (home page)
   void _moveToPlan () {
     setState((){});
     Navigator.push(
@@ -124,6 +126,7 @@ class _RouteMapState extends State<RouteMap> {
     );
   }
 
+  /// Navigate to view text directions
   void _moveToText () {
     setState(() {});
     Navigator.push(
@@ -132,6 +135,7 @@ class _RouteMapState extends State<RouteMap> {
     );
   }
 
+  /// Navigate to change the current location
   void _moveToLocation () {
     setState(() {});
     Navigator.push(

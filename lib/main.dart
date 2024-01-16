@@ -66,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
       selectedAnimals.sort();
     }
 
+    /// Initialize name lists
     _allNames.addAll(algorithm.getAllNames());
     for (int i = algorithm.getAmount() - 1; i >= 0; i--) {
       if (!algorithm.isAnimal(i)) {
@@ -75,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _searchResults.addAll(_allNames);
   }
 
+  /// Navigate to RouteMap page
   void _moveToRoute () {
     setState((){});
     Navigator.push(
@@ -99,6 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  /// Remove an animal from being selected from the selected tab
   void _removeAnimal (int index) {
     setState(() {});
     animalSelected[algorithm.returnIndex(selectedAnimals[index])] = false;
@@ -106,11 +109,13 @@ class _MyHomePageState extends State<MyHomePage> {
     selectedAnimals.remove(selectedAnimals[index]);
   }
 
+  /// Update animals shown based on what is typed in the text field
   void _searchChanged(String search) {
     setState(() {});
     _searchResults = _allNames.where((element) => element.toLowerCase().contains(search.toLowerCase())).toList();
   }
 
+  /// Adjust index used due to searching
   int _trueIndex (int index) {
     return algorithm.returnIndex(_searchResults[index]);
   }

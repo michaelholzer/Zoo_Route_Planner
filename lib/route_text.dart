@@ -43,8 +43,8 @@ class _RouteTextState extends State<RouteText> {
     animalList.clear();
     animalList.addAll(tempList);
 
-    List<int> trueOrder = [];
     /// Add lines for route and add details to order
+    List<int> trueOrder = [];
     for (int i = 0; i < order.length - 2; i++) {
       if (!algorithm.pointsConnect(order[i], order[i+1])) {
         List<int> tree = algorithm.getTree(order[i], order[i+1]);
@@ -62,6 +62,7 @@ class _RouteTextState extends State<RouteText> {
     order.add(-1); /// -1 signifies end of route
   }
 
+  /// Navigate to the plan page (home page)
   void _moveToPlan () {
     setState((){});
     Navigator.push(
@@ -70,6 +71,7 @@ class _RouteTextState extends State<RouteText> {
     );
   }
 
+  /// Navigate to view map directions
   void _moveToMap () {
     setState(() {});
     Navigator.push(
@@ -78,6 +80,7 @@ class _RouteTextState extends State<RouteText> {
     );
   }
 
+  /// Navigate to change the current location
   void _moveToLocation () {
     setState(() {});
     Navigator.push(
