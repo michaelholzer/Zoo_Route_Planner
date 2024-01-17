@@ -1,7 +1,7 @@
 class DijkstrasAlgorithm {
 
   /// List of names for all items
-  /// New ones will be added in correct alphabetical order
+  /// This list needs to be kept in alphabetical order
   static final List<String> names = [
     'Andean Bear', 'Axolotl',                                                   /// 'A'
     'Bashur Bridge Elevator',                                                   /// 'B'
@@ -15,7 +15,7 @@ class DijkstrasAlgorithm {
     'Kangaroo Stop 1', 'Kangaroo Stop 3', 'Koala', 'Komodo Dragon',             /// 'K'
     'Lemur', 'Leopard', 'Lion',                                                 /// 'L'
     'Mandrill', 'Map Locator 03', 'Map Locator 04', 'Map Locator 08', 'Map Locator 11',
-    'Map Locator 13', 'Map Locator 15', 'Map Locator 20', 'Merekat',            /// 'M'
+    'Map Locator 13', 'Map Locator 15', 'Map Locator 20', 'Meerkat',            /// 'M'
     /// 'N'
     'Orangutan',                                                                /// 'O'
     'Penguin', 'Polar Bear',                                                    /// 'P'
@@ -81,7 +81,7 @@ class DijkstrasAlgorithm {
     coordinates[names.indexOf('Map Locator 13')] = [32.73576, -117.15173];
     coordinates[names.indexOf('Map Locator 15')] = [32.73404, -117.15336];
     coordinates[names.indexOf('Map Locator 20')] = [32.73553, -117.15289];
-    coordinates[names.indexOf('Merekat')] = [32.73929, -117.15060];
+    coordinates[names.indexOf('Meerkat')] = [32.73929, -117.15060];
     coordinates[names.indexOf('Orangutan')] = [32.73540, -117.15058];
     coordinates[names.indexOf('Penguin')] = [32.73638, -117.15201];
     coordinates[names.indexOf('Polar Bear')] = [32.73430, -117.15469];
@@ -98,7 +98,7 @@ class DijkstrasAlgorithm {
     adjacencyMatrix[names.indexOf('Bashur Bridge Elevator')][names.indexOf('Gorilla')] = 100;
     adjacencyMatrix[names.indexOf('Bashur Bridge Elevator')][names.indexOf('Red Panda')] = 40;
     adjacencyMatrix[names.indexOf('Bashur Bridge Elevator')][names.indexOf('Map Locator 20')] = 90;
-    adjacencyMatrix[names.indexOf('California Condor')][names.indexOf('Merekat')] = 105;
+    adjacencyMatrix[names.indexOf('California Condor')][names.indexOf('Meerkat')] = 105;
     adjacencyMatrix[names.indexOf('California Condor')][names.indexOf('Elephant')] = 313;
     adjacencyMatrix[names.indexOf('Cheetah')][names.indexOf('Giraffe')] = 42;
     adjacencyMatrix[names.indexOf('Cheetah')][names.indexOf('Kangaroo Stop 1')] = 41;
@@ -119,7 +119,7 @@ class DijkstrasAlgorithm {
     adjacencyMatrix[names.indexOf('Gorilla')][names.indexOf('Bashur Bridge Elevator')] = 100;
     adjacencyMatrix[names.indexOf('Gorilla')][names.indexOf('Mandrill')] = 117;
     adjacencyMatrix[names.indexOf('Hamadryas Baboon')][names.indexOf('Lemur')] = 276;
-    adjacencyMatrix[names.indexOf('Hamadryas Baboon')][names.indexOf('Merekat')] = 153;
+    adjacencyMatrix[names.indexOf('Hamadryas Baboon')][names.indexOf('Meerkat')] = 153;
     adjacencyMatrix[names.indexOf('Hamadryas Baboon')][names.indexOf('Koala')] = 121;
     adjacencyMatrix[names.indexOf('Harpy Eagle')][names.indexOf('Zebra')] = 91;
     adjacencyMatrix[names.indexOf('Harpy Eagle')][names.indexOf('Map Locator 15')] = 48;
@@ -167,8 +167,8 @@ class DijkstrasAlgorithm {
     adjacencyMatrix[names.indexOf('Map Locator 20')][names.indexOf('Lion')] = 45;
     adjacencyMatrix[names.indexOf('Map Locator 20')][names.indexOf('Bashur Bridge Elevator')] = 90;
     adjacencyMatrix[names.indexOf('Map Locator 20')][names.indexOf('Kangaroo Stop 3')] = 40;
-    adjacencyMatrix[names.indexOf('Merekat')][names.indexOf('Hamadryas Baboon')] = 153;
-    adjacencyMatrix[names.indexOf('Merekat')][names.indexOf('California Condor')] = 105;
+    adjacencyMatrix[names.indexOf('Meerkat')][names.indexOf('Hamadryas Baboon')] = 153;
+    adjacencyMatrix[names.indexOf('Meerkat')][names.indexOf('California Condor')] = 105;
     adjacencyMatrix[names.indexOf('Orangutan')][names.indexOf('Fern Canyon')] = 35;
     adjacencyMatrix[names.indexOf('Orangutan')][names.indexOf('Mandrill')] = 117;
     adjacencyMatrix[names.indexOf('Orangutan')][names.indexOf('Gorilla')] = 140;
@@ -191,113 +191,113 @@ class DijkstrasAlgorithm {
 
     /// Set Matrix to give Directions
     directionMatrix[names.indexOf('Andean Bear')][names.indexOf('Map Locator 08')]
-      = 'Walk up the hill.';
+      = 'Walk up the hill to the red circular sign on a signpost, Map Locator 08.';
     directionMatrix[names.indexOf('Andean Bear')][names.indexOf('Map Locator 11')]
-      = 'Walk down the hill.';
+      = 'Walk down the hill to the red circular sign on a signpost, Map Locator 11.';
     directionMatrix[names.indexOf('Axolotl')][names.indexOf('Hummingbird')]
-      = 'Walk towards the exit of Wildlife Explorer\'s Basecamp. Turn left after exiting.';
+      = 'Walk towards the exit of Wildlife Explorer\'s Basecamp. Turn left after exiting and arrive at the Hummingbird Aviary.';
     directionMatrix[names.indexOf('Bashur Bridge Elevator')][names.indexOf('Gorilla')]
-      = 'Walk away from the bridge and follow the path to the right.';
+      = 'Walk away from the bridge and follow the path to the right to the gorillas.';
     directionMatrix[names.indexOf('Bashur Bridge Elevator')][names.indexOf('Red Panda')]
-      = 'Take the elevator or stairs down an go left.';
+      = 'Take the elevator or stairs down an go left to the Red Pandas.';
     directionMatrix[names.indexOf('Bashur Bridge Elevator')][names.indexOf('Map Locator 20')]
-      = 'Walk across the bridge.';
-    directionMatrix[names.indexOf('California Condor')][names.indexOf('Merekat')]
-      = 'Walk towards the road and follow the pedestrian path to the right.';
+      = 'Walk across the bridge to the red circular sign on a signpost, Map Locator 20.';
+    directionMatrix[names.indexOf('California Condor')][names.indexOf('Meerkat')]
+      = 'Walk towards the bus road and follow the pedestrian path to the right to reach the meerkat habitat.';
     directionMatrix[names.indexOf('California Condor')][names.indexOf('Elephant')]
-      = 'Walk away from the road and follow the path.';
+      = 'Walk away from the bus road and follow the path to the elephants.';
     directionMatrix[names.indexOf('Cheetah')][names.indexOf('Giraffe')]
-      = 'Walk to the opposite side of the center island.';
+      = 'Walk to the opposite side of the center island and arrive at the giraffes.';
     directionMatrix[names.indexOf('Cheetah')][names.indexOf('Kangaroo Stop 1')]
       = 'Walk towards the center island with the Kangaroo bus sign.';
     directionMatrix[names.indexOf('Elephant')][names.indexOf('California Condor')]
-      = 'Continue down the path with the road to your left.';
+      = 'Continue down the path with the road to your left until you reach the California Condors.';
     directionMatrix[names.indexOf('Elephant')][names.indexOf('Lion')]
-      = 'Continue down the path with the road to your right.';
+      = 'Continue down the path with the road to your right and arrive at the Lions.';
     directionMatrix[names.indexOf('Entrance')][names.indexOf('Tasmanian Devil')]
-      = 'Turn with the entrance on the right and road on the left. Follow the winding path shadowed by trees.';
+      = 'Turn with the entrance on the right and road on the left. Follow the winding path shadowed by trees to arrive at the Tasmanian Devil habitat.';
     directionMatrix[names.indexOf('Entrance')][names.indexOf('Map Locator 04')]
-      = 'Cross the road to the circular sign on a signpost.';
+      = 'Cross the road to the red circular sign on a signpost, Map Locator 04.';
     directionMatrix[names.indexOf('Exit')][names.indexOf('Safari Kitchen')]
-      = 'Facing the exit (the direction of the macaw), turn left and follow the path.';
+      = 'Facing the exit (the direction of the macaw), turn left and follow the path to Safari Kitchen.';
     directionMatrix[names.indexOf('Exit')][names.indexOf('Map Locator 03')]
-      = 'Facing the exit (the direction of the macaw), turn right to the red sign on a post.';
+      = 'Facing the exit (the direction of the macaw), turn right to the red circular sign on a signpost, Map Locator 03.';
     directionMatrix[names.indexOf('Fern Canyon')][names.indexOf('Orangutan')]
-      = 'From the top of Fern Canyon, turn right and follow the path on the right.';
+      = 'From the top of Fern Canyon, turn right and follow the path on the right to reach the orangutan habitat.';
     directionMatrix[names.indexOf('Fern Canyon')][names.indexOf('Map Locator 11')]
-      = 'Walk down Fern Canyon.';
+      = 'Walk down Fern Canyon to the red circular sign on a signpost, Map Locator 11.';
     directionMatrix[names.indexOf('Fern Canyon')][names.indexOf('Map Locator 04')]
-      = 'From the top of Fern Canyon, turn left and follow the path.';
+      = 'From the top of Fern Canyon, turn left and follow the path to the red circular sign on a signpost, Map Locator 04.';
     directionMatrix[names.indexOf('Galapagos Tortoise')][names.indexOf('Map Locator 03')]
-      = 'Leave Reptile Mesa and go left around the Reptile House.';
+      = 'Leave Reptile Mesa and go left around the Reptile House to the red circular sign on a signpost, Map Locator 03.';
     directionMatrix[names.indexOf('Galapagos Tortoise')][names.indexOf('Komodo Dragon')]
-      = 'Leave Reptile Mesa and go right around the Reptile House.';
+      = 'Leave Reptile Mesa and go right around the Reptile House to Komodo Kingdom.';
     directionMatrix[names.indexOf('Giraffe')][names.indexOf('Cheetah')]
-      = 'Walk to the opposite side of the center island.';
+      = 'Walk to the opposite side of the center island to the cheetah habitat.';
     directionMatrix[names.indexOf('Giraffe')][names.indexOf('Kangaroo Stop 1')]
       = 'Walk towards the center island with the Kangaroo bus sign.';
     directionMatrix[names.indexOf('Gorilla')][names.indexOf('Orangutan')]
-      = 'Facing the gorillas, turn right and follow the left path.';
+      = 'Facing the gorillas, turn right and follow the left path to the orangutan habitat.';
     directionMatrix[names.indexOf('Gorilla')][names.indexOf('Bashur Bridge Elevator')]
-      = 'Facing the gorillas, turn left and head towards the bridge.';
+      = 'Facing the gorillas, turn left and walk to the bridge.';
     directionMatrix[names.indexOf('Gorilla')][names.indexOf('Mandrill')]
-      = 'Facing the gorillas, turn right and follow the right path.';
+      = 'Facing the gorillas, turn right and follow the right path to the mandrill habitat.';
     directionMatrix[names.indexOf('Hamadryas Baboon')][names.indexOf('Lemur')]
-      = 'Follow the downhill path.';
-    directionMatrix[names.indexOf('Hamadryas Baboon')][names.indexOf('Merekat')]
-      = 'After walking uphill, take the left path.';
+      = 'Follow the path downhill to the lemur habitat.';
+    directionMatrix[names.indexOf('Hamadryas Baboon')][names.indexOf('Meerkat')]
+      = 'After walking uphill, take the path on the left to the meerkat habitat.';
     directionMatrix[names.indexOf('Hamadryas Baboon')][names.indexOf('Koala')]
-      = 'After walking uphill, take the right path.';
+      = 'After walking uphill, take the path on the right to the koala habitat.';
     directionMatrix[names.indexOf('Harpy Eagle')][names.indexOf('Zebra')]
-      = 'Follow the uphill path with the road on your left.';
+      = 'Follow the uphill path with the road on your left to the zebras.';
     directionMatrix[names.indexOf('Harpy Eagle')][names.indexOf('Map Locator 15')]
-      = 'Follow the path with the road on your right.';
+      = 'Follow the path with the road on your right to the red circular sign on a signpost, Map Locator 15.';
     directionMatrix[names.indexOf('Hummingbird')][names.indexOf('Axolotl')]
       = 'Walk into Wildlife Explorer\'s Basecamp and enter Cool Critters.';
     directionMatrix[names.indexOf('Hummingbird')][names.indexOf('Komodo Dragon')]
       = 'Walk to Komodo Kingdom.';
     directionMatrix[names.indexOf('Kangaroo Stop 1')][names.indexOf('Cheetah')]
-      = 'Turn slightly right and walk forward.';
+      = 'Turn slightly right and walk forward to the cheetah habitat.';
     directionMatrix[names.indexOf('Kangaroo Stop 1')][names.indexOf('Giraffe')]
-      = 'Turn slightly left and walk forward.';
+      = 'Turn slightly left and walk forward to the giraffe habitat.';
     directionMatrix[names.indexOf('Kangaroo Stop 1')][names.indexOf('Koala')]
       = 'Turn and walk towards the large building with a red roof.';
     directionMatrix[names.indexOf('Kangaroo Stop 3')][names.indexOf('Polar Bear')]
-      = 'Walk towards the Skifari and continue down the hill.';
+      = 'Walk towards the Skyfari and continue down the hill to  Polar Bear Plunge.';
     directionMatrix[names.indexOf('Kangaroo Stop 3')][names.indexOf('Map Locator 20')]
-      = 'Walk away from the Skifari and follow the pedestrian path on the right.';
+      = 'Walk away from the Skyfari and follow the pedestrian path on the right to the red circular sign on a signpost, Map Locator 20.';
     directionMatrix[names.indexOf('Koala')][names.indexOf('Hamadryas Baboon')]
-      = 'Walk towards the Desert Garden and follow the pedestrian path.';
+      = 'Walk towards the Desert Garden and follow the pedestrian path to the Baboon habitat.';
     directionMatrix[names.indexOf('Koala')][names.indexOf('Kangaroo Stop 1')]
-      = 'Walk towards Urban Jungle.';
+      = 'Walk towards Urban Jungle to the Kangaroo bus sign.';
     directionMatrix[names.indexOf('Koala')][names.indexOf('Map Locator 08')]
-      = 'Walking past the male Koalas, turn left and then right to the red sign on a post.';
+      = 'Walking past the male Koalas, turn left and then right to the red circular sign on a signpost, Map Locator 08.';
     directionMatrix[names.indexOf('Komodo Dragon')][names.indexOf('Galapagos Tortoise')]
-      = 'Turn right out of Komodo Kingdom and walk towards Reptile Mesa.';
+      = 'Turn right out of Komodo Kingdom and walk to Reptile Mesa.';
     directionMatrix[names.indexOf('Komodo Dragon')][names.indexOf('Hummingbird')]
       = 'Walk to the Hummingbird Aviary.';
     directionMatrix[names.indexOf('Komodo Dragon')][names.indexOf('Map Locator 03')]
       = 'Exit Komodo Kingdom and walk to the opposite side of the Reptile House.';
     directionMatrix[names.indexOf('Lemur')][names.indexOf('Hamadryas Baboon')]
-      = 'Follow the path up the hill.';
+      = 'Follow the path up the hill to the Hamadryas baboon habitat.';
     directionMatrix[names.indexOf('Lemur')][names.indexOf('Penguin')]
-      = 'Follow the path down the hill.';
+      = 'Follow the path down the hill to the penguin habitat.';
     directionMatrix[names.indexOf('Leopard')][names.indexOf('Map Locator 15')]
-      = 'Exit out the the \'Entrance\' of Asian Cats.';
+      = 'Exit out the the \'Entrance\' of Asian Cats to the red circular sign on a signpost, Map Locator 15.';
     directionMatrix[names.indexOf('Leopard')][names.indexOf('Red Panda')]
-      = 'Walk to the exit of Asian Cats and follow the pedestrian path.';
+      = 'Walk to the exit of Asian Cats and follow the pedestrian path to the Panda Habitat.';
     directionMatrix[names.indexOf('Lion')][names.indexOf('Elephant')]
-      = 'Facing the Lions, turn right and follow the pedestrian path.';
+      = 'Facing the Lions, turn right and follow the pedestrian path to the elephant habitat.';
     directionMatrix[names.indexOf('Lion')][names.indexOf('Map Locator 20')]
-      = 'Facing the Lions, turn left and follow the pedestrian path.';
+      = 'Facing the Lions, turn left and follow the pedestrian path to the red circular sign on a signpost, Map Locator 20.';
     directionMatrix[names.indexOf('Mandrill')][names.indexOf('Gorilla')]
-      = 'From the upstairs path, face the Mandrills and turn left. Follow the path.';
+      = 'From the upstairs path, face the Mandrills and turn left. Follow the path to the gorilla habitat.';
     directionMatrix[names.indexOf('Mandrill')][names.indexOf('Tiger')]
-      = 'From the downstairs path, face the Mandrills and turn left. Follow the fork to the right and walk downhill.';
+      = 'From the downstairs path, face the Mandrills and turn left. Follow the fork to the right and walk downhill on Tiger Trail to reach the tigers.';
     directionMatrix[names.indexOf('Mandrill')][names.indexOf('Orangutan')]
-      = 'From the downstairs path, face the Mandrills and turn right. Follow the fork to the left and follow the path.';
+      = 'From the downstairs path, face the Mandrills and turn right. Follow the fork to the left and follow the path to the orangutans.';
     directionMatrix[names.indexOf('Mandrill')][names.indexOf('Safari Kitchen')]
-      = 'From the upstairs path, face the Mandrills and turn right. Follow the path.';
+      = 'From the upstairs path, face the Mandrills and turn right. Follow the path to Safari Kitchen.';
     directionMatrix[names.indexOf('Map Locator 03')][names.indexOf('Galapagos Tortoise')]
       = 'Pass by the Reptile House and enter Reptile Mesa.';
     directionMatrix[names.indexOf('Map Locator 03')][names.indexOf('Komodo Dragon')]
@@ -305,83 +305,83 @@ class DijkstrasAlgorithm {
     directionMatrix[names.indexOf('Map Locator 03')][names.indexOf('Exit')]
       = 'Walk away from the Reptile House and find the Exit sign with a macaw on top.';
     directionMatrix[names.indexOf('Map Locator 04')][names.indexOf('Safari Kitchen')]
-      = 'Walk clockwise around the flamingo pond.';
+      = 'Walk clockwise around the flamingo pond to Safari Kitchen.';
     directionMatrix[names.indexOf('Map Locator 04')][names.indexOf('Fern Canyon')]
-      = 'Walk counterclockwise around the flamingo pond and down Treetops Way.';
+      = 'Walk counterclockwise around the flamingo pond and down Treetops Way to Fern Canyon.';
     directionMatrix[names.indexOf('Map Locator 04')][names.indexOf('Entrance')]
-      = 'Turn away from the flamingo pond and cross the street.';
+      = 'Turn away from the flamingo pond and cross the street to the Entrance.';
     directionMatrix[names.indexOf('Map Locator 08')][names.indexOf('Andean Bear')]
-      = 'Walk down the steep hill.';
+      = 'Walk down the steep hill to the Andean Bears on the right.';
     directionMatrix[names.indexOf('Map Locator 08')][names.indexOf('Koala')]
       = 'Walk towards the large building with the red roof.';
     directionMatrix[names.indexOf('Map Locator 08')][names.indexOf('Tasmanian Devil')]
-      = 'Walk to the left of the bus road past the map of Australia.';
+      = 'Walk to the left of the bus road past the map of Australia to the Tasmanian Devils.';
     directionMatrix[names.indexOf('Map Locator 11')][names.indexOf('Andean Bear')]
-      = 'Walk uphill following the path and road.';
+      = 'Walk uphill following the path and road to the Andean Bears on the left.';
     directionMatrix[names.indexOf('Map Locator 11')][names.indexOf('Fern Canyon')]
-      = 'Cross the road and walk up the stairs and path.';
+      = 'Cross the road and walk up the stairs and path to the top of Fern Canyon.';
     directionMatrix[names.indexOf('Map Locator 11')][names.indexOf('Map Locator 13')]
-      = 'Walk down the hill following the pedestrian path or the road.';
+      = 'Walk down the hill following the pedestrian path or the road to the red circular sign on a signpost, Map Locator 13.';
     directionMatrix[names.indexOf('Map Locator 13')][names.indexOf('Map Locator 11')]
-      = 'Walk up the hill following the road or \'Sun Bear Trail\'.';
+      = 'Walk up the hill following the road or Sun Bear Trail to the red circular sign on a signpost, Map Locator 11.';
     directionMatrix[names.indexOf('Map Locator 13')][names.indexOf('Penguin')]
-      = 'Follow the pedestrian path to \'Africa Rocks\'.';
+      = 'Follow the pedestrian path to Africa Rocks and the penguin habitat.';
     directionMatrix[names.indexOf('Map Locator 13')][names.indexOf('Red Panda')]
-      = 'Walk towards the Panda Conservation building.';
+      = 'Walk towards the Panda Conservation building to the Red Pandas.';
     directionMatrix[names.indexOf('Map Locator 15')][names.indexOf('Harpy Eagle')]
-      = 'Walk past the sand hippopotamus statue and follow \'Eagle Trail\'.';
+      = 'Walk past the sand hippopotamus statue and follow Eagle Trail to the harpy eagle.';
     directionMatrix[names.indexOf('Map Locator 15')][names.indexOf('Leopard')]
-      = 'Enter \'Asian Cats\'.';
+      = 'Enter Asian Cats to see the leopards.';
     directionMatrix[names.indexOf('Map Locator 15')][names.indexOf('Tiger')]
-      = 'Turn across from the sand hippopotamus statue and enter \'Tiger Trail\'.';
+      = 'Turn across from the sand hippopotamus statue and enter Tiger Trail to reach the tiger habitat.';
     directionMatrix[names.indexOf('Map Locator 20')][names.indexOf('Lion')]
-      = 'Facing away from the bridge, turn right and follow the path.';
+      = 'Facing away from the bridge, turn right and follow the path to the lions.';
     directionMatrix[names.indexOf('Map Locator 20')][names.indexOf('Bashur Bridge Elevator')]
-      = 'Walk across the bridge.';
+      = 'Walk across the bridge to the elevators on the other side.';
     directionMatrix[names.indexOf('Map Locator 20')][names.indexOf('Kangaroo Stop 3')]
-      = 'Facing away from the bridge, turn left and follow the path.';
-    directionMatrix[names.indexOf('Merekat')][names.indexOf('Hamadryas Baboon')]
-      = 'With the bus road to your left, follow the pedestrian path.';
-    directionMatrix[names.indexOf('Merekat')][names.indexOf('California Condor')]
-      = 'With the bus road to your right, follow the pedestrian path.';
+      = 'Facing away from the bridge, turn left and follow the path to the Kangaroo bus sign.';
+    directionMatrix[names.indexOf('Meerkat')][names.indexOf('Hamadryas Baboon')]
+      = 'With the bus road to your left, follow the pedestrian path to the baboon habitat.';
+    directionMatrix[names.indexOf('Meerkat')][names.indexOf('California Condor')]
+      = 'With the bus road to your right, follow the pedestrian path to the California Condors.';
     directionMatrix[names.indexOf('Orangutan')][names.indexOf('Fern Canyon')]
-      = 'Facing the orangutans, turn right and follow the path to the left.';
+      = 'Facing the orangutans, turn right and follow the path to the left to the top of Fern Canyon.';
     directionMatrix[names.indexOf('Orangutan')][names.indexOf('Mandrill')]
-      = 'Facing the orangutans, turn right and follow the path to the right.';
+      = 'Facing the orangutans, turn right and follow the path to the right to reach the mandrill habitat.';
     directionMatrix[names.indexOf('Orangutan')][names.indexOf('Gorilla')]
-      = 'Facing the orangutans, turn left and follow the path.';
+      = 'Facing the orangutans, turn left and follow the path to the gorilla habitat.';
     directionMatrix[names.indexOf('Penguin')][names.indexOf('Lemur')]
-      = 'Turn right from the penguins and follow the path uphill.';
+      = 'Turn right from the penguins and follow the path uphill to the lemur habitat.';
     directionMatrix[names.indexOf('Penguin')][names.indexOf('Map Locator 13')]
-      = 'Turn left from the penguins and follow the path.';
+      = 'Turn left from the penguins and follow the path to the red circular sign on a signpost, Map Locator 13.';
     directionMatrix[names.indexOf('Polar Bear')][names.indexOf('Zebra')]
-      = 'Walk down the hill.';
+      = 'Walk down the hill to the zebra habitat.';
     directionMatrix[names.indexOf('Polar Bear')][names.indexOf('Kangaroo Stop 3')]
-      = 'Walk up the hill.';
+      = 'Walk up the hill to the Kangaroo bus stop.';
     directionMatrix[names.indexOf('Red Panda')][names.indexOf('Leopard')]
-      = 'Enter the \'Exit\' of Asian Cats.';
+      = 'Enter the \'Exit\' of Asian Cats to reach the leopard habitats.';
     directionMatrix[names.indexOf('Red Panda')][names.indexOf('Bashur Bridge Elevator')]
       = 'Turn around and walk to the large elevator.';
     directionMatrix[names.indexOf('Red Panda')][names.indexOf('Map Locator 13')]
-      = 'Exit Panda Passage and walk towards Hua Mei Cafe.';
+      = 'Exit Panda Passage and walk to the red circular sign on a signpost, Map Locator 08.';
     directionMatrix[names.indexOf('Safari Kitchen')][names.indexOf('Exit')]
       = 'Facing the food stall, turn left, cross the bus road, and walk towards the exit sign with a macaw on top.';
     directionMatrix[names.indexOf('Safari Kitchen')][names.indexOf('Map Locator 04')]
-      = 'Walk counter clockwise around the flamingo pond to the post with a red sign on top.';
+      = 'Walk counter clockwise around the flamingo pond to the red circular sign on a signpost, Map Locator 04.';
     directionMatrix[names.indexOf('Safari Kitchen')][names.indexOf('Mandrill')]
-      = 'Facing away from the food stall, follow the path to the left down \'Monkey Trails\'.';
+      = 'Facing away from the food stall, follow the path to the left down Monkey Trails to reach the mandrill habitat.';
     directionMatrix[names.indexOf('Tasmanian Devil')][names.indexOf('Entrance')]
-      = 'Facing the Tasmanian Devils, turn right and follow the winding path.';
+      = 'Facing the Tasmanian Devils, turn right and follow the winding path to the entrance.';
     directionMatrix[names.indexOf('Tasmanian Devil')][names.indexOf('Map Locator 08')]
-      = 'Facing the Tasmanian Devils, turn left and cross the bus road.';
+      = 'Facing the Tasmanian Devils, turn left and cross the bus road to the red circular sign on a signpost, Map Locator 08.';
     directionMatrix[names.indexOf('Tiger')][names.indexOf('Map Locator 15')]
-      = 'Walk down the hill.';
+      = 'Walk down the hill to the red circular sign on a signpost, Map Locator 15.';
     directionMatrix[names.indexOf('Tiger')][names.indexOf('Mandrill')]
-      = 'Walk up the hill.';
+      = 'Walk up the hill to the mandrill habitat.';
     directionMatrix[names.indexOf('Zebra')][names.indexOf('Polar Bear')]
-      = 'Walk up the hill.';
+      = 'Walk up the hill to polar bear plunge.';
     directionMatrix[names.indexOf('Zebra')][names.indexOf('Harpy Eagle')]
-      = 'Walk down the hill.';
+      = 'Walk down the hill to Eagle Trail and the harpy eagle.';
 
     /// Set non-animal locations as false
     animal[names.indexOf('Bashur Bridge Elevator')] = false;

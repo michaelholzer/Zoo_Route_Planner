@@ -129,10 +129,10 @@ class _MyHomePageState extends State<MyHomePage> {
           appBar: AppBar(
             backgroundColor: Colors.green,
             automaticallyImplyLeading: false,
-            toolbarHeight: 70,
+            toolbarHeight: 75,
             title: Container(
               alignment: Alignment.center,
-              child:const Text(
+              child: const Text(
                 'What animals would\nyou like to see?',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -142,23 +142,32 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            bottom: const TabBar(
+            bottom: TabBar(
               dividerHeight: 3,
               dividerColor: Colors.lightGreen,
               indicatorColor: Colors.black,
               labelColor: Colors.black,
               unselectedLabelColor: Colors.black54,
+              labelPadding: EdgeInsets.zero,
               tabs: [
-                Tab(
-                  child: Text(
-                    'Add',
-                    style: TextStyle(fontSize: 30,),
+                Container(
+                  width: double.infinity,
+                  color: Colors.black12,
+                  child: const Tab(
+                    child: Text(
+                      'Add',
+                      style: TextStyle(fontSize: 30,),
+                    ),
                   ),
                 ),
-                Tab(
-                  child: Text(
-                    'Selected',
-                    style: TextStyle(fontSize: 30,),
+                Container(
+                  width: double.infinity,
+                  color: Colors.black12,
+                  child: const Tab(
+                    child: Text(
+                      'Selected',
+                      style: TextStyle(fontSize: 30,),
+                    ),
                   ),
                 ),
               ],
@@ -175,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     decoration: InputDecoration(
                       hintText: 'Search',
                       hintStyle: const TextStyle(
-                        fontSize: 20,
+                        fontSize: 22,
                       ),
                       prefixIcon: Container(
                         padding: const EdgeInsets.all(5),
@@ -190,7 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
                               return ListTile(
-                                minVerticalPadding: 2,
+                                minVerticalPadding: 3,
                                 dense: true,
                                 title: OutlinedButton(
                                   style: OutlinedButton.styleFrom(
