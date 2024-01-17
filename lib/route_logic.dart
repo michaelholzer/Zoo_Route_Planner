@@ -420,7 +420,7 @@ class DijkstrasAlgorithm {
   bool isAnimal (int index) => animal[index];
 
   /// Starting location
-  int start = 0;
+  int start = names.indexOf('Entrance');
   void setStart (int value) => start = value;
 
   /// True if user wants to visit the animal
@@ -435,9 +435,7 @@ class DijkstrasAlgorithm {
 
   /// Returns the shortest path tree
   List<int> getTree (int a, int b) {
-
     List<List<int>> result = _dijkstra(adjacencyMatrix, a);
-
     List<int> tree = _fullPath(b, result[1], a);
 
     return tree;
